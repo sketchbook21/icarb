@@ -1,0 +1,66 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700");
+@import "~bootstrap/scss/bootstrap";
+
+body {
+  padding: 0;
+  line-height: 1.25;
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+  color: #202020;
+  font-smooth: always;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.hero {
+  background-image: url("images/hero-final.jpg"); /* The image used */
+  background-color: #cccccc; /* Used if the image is unavailable */
+  height: calc(100vh - 58px); /* You must set a specified height */
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover;
+  overflow: hidden;
+  text-align: center;
+}
+
+.fs-1 {
+  font-size: 4em;
+}
+
+.fs-2 {
+  font-size: 2em;
+}
+
+.fs-3 {
+  font-size: 1.25em;
+}
+
+.fw-3 {
+  font-weight: 300;
+}
+
+.fw-4 {
+  font-weight: 400;
+}
+
+.fw-5 {
+  font-weight: 500;
+}
+
+.fw-7 {
+  font-weight: 700;
+}
+
+@media (max-width: 600px) {
+  .fs-1 {
+    font-size: 3em;
+  }
+
+  .fs-2 {
+    font-size: 1.5em;
+  }
+
+  .fs-3 {
+    font-size: 1em;
+  }
+}
