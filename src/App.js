@@ -13,8 +13,8 @@ function App() {
       <Route component={Nav} path="" />
       <Switch>
         <Route component={Home} exact path="/" />
-        <Route component={Order} exact path="/order/:id" />
-        <Route component={Checkout} exact path="/checkout" />
+        <Route component={Order} exact path="/order/:id/item/:id" />
+        <Route component={Checkout} exact path="/checkout/:id" />
         <Route component={NotFound} path="/" />
       </Switch>
     </Router>
