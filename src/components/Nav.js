@@ -6,12 +6,12 @@ const Nav = () => {
     <Navbar expand="sm" bg="dark" variant="dark">
       <Container>
         <Navbar.Brand
-          href="/"
+          href="/icarb"
           className="w-100 d-flex justify-content-between align-items-center"
         >
           <span>
             <Image
-              src="/pizza.svg"
+              src="/icarb/pizza.svg"
               className="pr-2 pb-1"
               style={{ height: "1.5em" }}
             />{" "}

@@ -10,12 +10,12 @@ import Checkout from "./components/Checkout";
 function App() {
   return (
     <Router>
-      <Route component={Nav} path="" />
+      <Route component={Nav} path="/icarb" />
       <Switch>
-        <Route component={Home} exact path="/" />
-        <Route component={Order} exact path="/order/:id/item/:id" />
-        <Route component={Checkout} exact path="/checkout/:id" />
-        <Route component={NotFound} path="/" />
+        <Route component={Home} exact path="/icarb" />
+        <Route component={Order} exact path="/icarb/order/:id/item/:id" />
+        <Route component={Checkout} exact path="/icarb/checkout/:id" />
+        <Route component={NotFound} path="/icarb/" />
       </Switch>
     </Router>
   );
