@@ -5,7 +5,7 @@ import { useHistory } from "react-router";
 const Home = () => {
   const history = useHistory();
   const handleToOrder = () => {
-    history.push("pizza/1");
+    history.push("/icarb/pizza/1");
   };
 
   return (

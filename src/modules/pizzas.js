@@ -5,7 +5,10 @@
 // Reducer and its initialState
 
 const initialState = {
-  pizzaList: [],
+  pizzaList: [
+    { id: 1, name: "Delicious Pizza!" },
+    { id: 2, name: "Pepperoni Awesome" },
+  ],
 };
 
 const pizzas = (state = initialState, action) => {

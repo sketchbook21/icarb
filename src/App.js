@@ -9,7 +9,6 @@ import Nav from "./components/Nav";
 import Checkout from "./components/Checkout";
 
 const App = (props) => {
-  console.log("props", props);
   return (
     <Provider store={props.store}>
       <Router>
