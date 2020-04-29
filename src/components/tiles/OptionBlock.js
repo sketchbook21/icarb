@@ -1,11 +1,15 @@
 import React from "react";
 import { Button, Row, Container } from "react-bootstrap";
 
-const OptionBlock = ({ title, options }) => {
+const OptionBlock = ({ title, options, subOptionBlock = null }) => {
+  let displayTitleClass = "my-3 fw-5";
+  let displayOptionBlockClass = "option-block";
+  if (subOptionBlock) {
+    displayTitleClass = "my-3 fs-4";
+    displayOptionBlockClass = "suboption-block";
+  }
+
   const displayOptions = options.map((option) => {
-    // const toggleClass = selected
-    //   ? "option-button-selected d-flex justify-content-between"
-    //   : "option-button d-flex justify-content-between";
     return (
       <Row>
         <Button
@@ -21,8 +25,8 @@ const OptionBlock = ({ title, options }) => {
     );
   });
   return (
-    <div className="option-block">
-      <div className="my-3 fw-5">{title}</div>
+    <div className={displayOptionBlockClass}>
+      <div className={displayTitleClass}>{title}</div>
       <Container>{displayOptions}</Container>
     </div>
   );
