@@ -12,16 +12,66 @@ const Order = (props) => {
   return (
     <Container className="mt-5 mx-auto">
       <Row>
-        <Col md={6} className="pr-3">
+        <Col md={6} className="pr-3 order-options-column">
           <div className="fs-2 fw-5">Start Order</div>
           <div className="mb-5">
             Select from our list of gourmet pies or build your own.
           </div>
           <OptionBlock
-            title="Pickup or Delivery?"
+            title="Choose your size."
             options={[
-              { name: "Pickup", value: "$0.00", disabled: false },
-              { name: "Delivery", value: "$5.00", disabled: false },
+              {
+                name: "Medium (12-inch)",
+                value: "+$11.50",
+                active: true,
+                disabled: false,
+              },
+              {
+                name: "Large (16-inch)",
+                value: "+$16.25",
+                selected: false,
+                disabled: false,
+              },
+            ]}
+          />
+          <OptionBlock
+            title="Choose your crust."
+            options={[
+              {
+                name: "Regular",
+                value: "+$0.00",
+                active: false,
+                disabled: false,
+              },
+              {
+                name: "Gluten-free",
+                value: "+$2.00",
+                selected: false,
+                disabled: false,
+              },
+            ]}
+          />
+          <OptionBlock
+            title="Choose from our House Specials."
+            options={[
+              {
+                name: "Cheese",
+                value: "+$0.00",
+                active: false,
+                disabled: false,
+              },
+              {
+                name: "3 Cheese Tortelinni",
+                value: "+$3.50",
+                selected: false,
+                disabled: false,
+              },
+              {
+                name: "Four Cheese",
+                value: "+$3.50",
+                selected: false,
+                disabled: false,
+              },
             ]}
           />
         </Col>
