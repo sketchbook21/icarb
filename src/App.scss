@@ -109,6 +109,39 @@ body {
   border: 1px solid #0069d9 !important;
 }
 
+.preview-img {
+  height: 30vh;
+  border-radius: 5px;
+}
+
+.subtotal-title {
+  border-top: 1px solid rgb(199, 199, 199);
+  border-bottom: 1px solid rgb(199, 199, 199);
+}
+
+.subtotal-container {
+  border-bottom: 1px solid rgb(199, 199, 199);
+  overflow: scroll;
+}
+
+.subtotal-container::-webkit-scrollbar {
+  display: none;
+}
+
+.display-items-container {
+  height: 30vh;
+  overflow: scroll;
+}
+
+.display-items-container::-webkit-scrollbar {
+  display: none;
+}
+
+.line-below {
+  margin-bottom: 1em;
+  border-bottom: 1px solid rgb(199, 199, 199);
+}
+
 @media (max-width: 600px) {
   .fs-1 {
     font-size: 3em;

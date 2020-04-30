@@ -4,7 +4,7 @@ import { Form, Col, Row } from "react-bootstrap";
 const OptionCheckBlock = ({ title, options }) => {
   const displayOptions = options.map((option) => {
     return (
-      <Col md={6} className="mb-2">
+      <Col key={option.id} md={6} className="mb-2">
         <Form.Check
           type="checkbox"
           id={option.name}

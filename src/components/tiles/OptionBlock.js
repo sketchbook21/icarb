@@ -11,7 +11,7 @@ const OptionBlock = ({ title, options, subOptionBlock = null }) => {
 
   const displayOptions = options.map((option) => {
     return (
-      <Row>
+      <Row key={option.id}>
         <Button
           className="option-button d-flex justify-content-between"
           variant="outline-primary"
