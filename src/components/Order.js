@@ -1,23 +1,33 @@
 import React from "react";
+import { connect } from "react-redux";
 import { Container, Row, Col, Button, Image } from "react-bootstrap";
 import { useHistory } from "react-router";
 import SubtotalContainer from "./containers/SubtotalContainer";
 import OptionBlock from "./tiles/OptionBlock";
 import OptionCheckBlock from "./tiles/OptionCheckBlock";
+import { chooseSize, chooseCrust } from "../modules/pizzas";
 
-const Order = (props) => {
+const Order = ({
+  pizzaSize,
+  crustType,
+  pizzaList,
+  chooseSize,
+  chooseCrust,
+}) => {
   const history = useHistory();
+  const cheesePizzas = pizzaList.filter((pizza) => pizza.type === "cheese");
+  const vegPizzas = pizzaList.filter((pizza) => pizza.type === "veg");
+  const meatPizzas = pizzaList.filter((pizza) => pizza.type === "meat");
+
   const handleContinue = () => {
     history.push("/icarb/checkout");
   };
+
   return (
     <Container className="mt-5 mx-auto">
       <Row>
         <Col md={6}>
-          <Image
-            className="preview-img mb-3"
-            src="https://www.blazepizza.com/assets/images/BYO_Large_1684x1114.jpg"
-          />
+          <Image className="preview-img mb-3" src="/icarb/images/cheese.jpeg" />
           <SubtotalContainer
             items={[
               {
@@ -85,145 +95,31 @@ const Order = (props) => {
           </div>
           <OptionBlock
             title="Choose your size."
-            options={[
-              {
-                id: 1,
-                name: "Medium (12-inch)",
-                value: "+$11.50",
-                active: true,
-                disabled: false,
-              },
-              {
-                id: 2,
-                name: "Large (16-inch)",
-                value: "+$16.25",
-                selected: false,
-                disabled: false,
-              },
-            ]}
+            options={pizzaSize}
+            sizeBlock={true}
+            selectFunction={chooseSize}
           />
           <OptionBlock
             title="Choose your crust."
-            options={[
-              {
-                id: 1,
-                name: "Regular",
-                value: "+$0.00",
-                active: false,
-                disabled: false,
-              },
-              {
-                id: 2,
-                name: "Gluten-free",
-                value: "+$2.00",
-                selected: false,
-                disabled: false,
-              },
-            ]}
+            options={crustType}
+            selectFunction={chooseCrust}
           />
           <div className="option-block">
             <div className="my-3 fw-5">Choose from our House Specials.</div>
             <OptionBlock
               title="Cheese"
               subOptionBlock={true}
-              options={[
-                {
-                  id: 1,
-                  name: "Cheese",
-                  value: "+$0.00",
-                  active: false,
-                  disabled: false,
-                },
-                {
-                  id: 2,
-                  name: "Four Cheese",
-                  value: "+$3.50",
-                  selected: false,
-                  disabled: false,
-                },
-              ]}
+              options={cheesePizzas}
             />
             <OptionBlock
               title="Veggie"
               subOptionBlock={true}
-              options={[
-                {
-                  id: 1,
-                  name: "Butternut Squash, Ricotta & Cranberry",
-                  value: "+$3.50",
-                  selected: false,
-                  disabled: false,
-                },
-                {
-                  id: 2,
-                  name: "Fresh Mushrooms & Roasted Cauliflower",
-                  value: "+$3.50",
-                  selected: false,
-                  disabled: false,
-                },
-                {
-                  id: 3,
-                  name: "Eggplant, Ricotta & Basil",
-                  value: "+$3.50",
-                  selected: false,
-                  disabled: false,
-                },
-                {
-                  id: 4,
-                  name: "Fresh Mushrooms, Manchego & Herb",
-                  value: "+$3.50",
-                  selected: false,
-                  disabled: false,
-                },
-                {
-                  id: 5,
-                  name: "Spinach, Kalamata Olive & Roasted Garlic",
-                  value: "+$3.50",
-                  selected: false,
-                  disabled: false,
-                },
-              ]}
+              options={vegPizzas}
             />
             <OptionBlock
               title="Meat"
               subOptionBlock={true}
-              options={[
-                {
-                  id: 1,
-                  name: "Pepperoni",
-                  value: "+$3.50",
-                  selected: false,
-                  disabled: false,
-                },
-                {
-                  id: 2,
-                  name: "Chicken, Roasted Pears & Fontina",
-                  value: "+$3.50",
-                  selected: false,
-                  disabled: false,
-                },
-                {
-                  id: 3,
-                  name: "Fresh Pineapple, Bacon & Hot Honey",
-                  value: "+$3.50",
-                  selected: false,
-                  disabled: false,
-                },
-                {
-                  id: 4,
-                  name: "Sriracha Chicken & Avocado",
-                  value: "+$3.50",
-                  selected: false,
-                  disabled: false,
-                },
-                {
-                  id: 5,
-                  name: "Spicy Pulled Pork with Scallion",
-                  value: "+$3.50",
-                  selected: false,
-                  disabled: false,
-                },
-              ]}
+              options={meatPizzas}
             />
           </div>
           <OptionCheckBlock
@@ -265,4 +161,20 @@ const Order = (props) => {
   );
 };
 
-export default Order;
+const mapStateToProps = (state) => {
+  console.log(state.pizzas.crustType);
+  return {
+    pizzaSize: state.pizzas.pizzaSize,
+    crustType: state.pizzas.crustType,
+    pizzaList: state.pizzas.pizzaList,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    chooseSize: (sizeId) => dispatch(chooseSize(sizeId)),
+    chooseCrust: (sizeId) => dispatch(chooseCrust(sizeId)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Order);

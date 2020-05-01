@@ -105,13 +105,14 @@ body {
   color: #202020 !important;
   background-color: white !important;
   box-shadow: 0 0 5px #0069d9 !important;
-  margin: 5px 1px 1em 0px !important;
   border: 1px solid #0069d9 !important;
 }
 
 .preview-img {
   height: 30vh;
+  width: 100%;
   border-radius: 5px;
+  object-fit: cover;
 }
 
 .subtotal-title {
