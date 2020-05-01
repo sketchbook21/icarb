@@ -162,7 +162,6 @@ const Order = ({
 };
 
 const mapStateToProps = (state) => {
-  console.log(state.pizzas.crustType);
   return {
     pizzaSize: state.pizzas.pizzaSize,
     crustType: state.pizzas.crustType,

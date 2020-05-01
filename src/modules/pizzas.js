@@ -7,17 +7,17 @@ const CHOOSE_CRUST = "CHOOSE_CRUST";
 
 // Action creators
 
-const chooseSize = (sizeId) => {
+const chooseSize = (id) => {
   return {
     type: CHOOSE_SIZE,
-    sizeId,
+    id,
   };
 };
 
-const chooseCrust = (crustId) => {
+const chooseCrust = (id) => {
   return {
     type: CHOOSE_CRUST,
-    crustId,
+    id,
   };
 };
 
@@ -29,28 +29,26 @@ const initialState = {
   pizzaList,
 };
 
+const setSelection = (array, id) => {
+  const newArray = array.concat();
+  newArray.forEach((item) => {
+    if (item.id === id) {
+      item["active"] = true;
+    } else {
+      item["active"] = false;
+    }
+  });
+  return newArray;
+};
+
 const pizzas = (state = initialState, action) => {
   switch (action.type) {
     case CHOOSE_SIZE:
-      let newPizzaSizeState = state.pizzaSize.concat();
-      if (action.sizeId === 1) {
-        newPizzaSizeState[0]["active"] = true;
-        newPizzaSizeState[1]["active"] = false;
-      } else {
-        newPizzaSizeState[0]["active"] = false;
-        newPizzaSizeState[1]["active"] = true;
-      }
-      return { ...state, pizzaSize: newPizzaSizeState };
+      const newPizzaSize = setSelection(state.pizzaSize, action.id);
+      return { ...state, pizzaSize: newPizzaSize };
     case CHOOSE_CRUST:
-      let newCrustTypeState = state.crustType.concat();
-      if (action.crustId === 1) {
-        newCrustTypeState[0]["active"] = true;
-        newCrustTypeState[1]["active"] = false;
-      } else {
-        newCrustTypeState[0]["active"] = false;
-        newCrustTypeState[1]["active"] = true;
-      }
-      return { ...state, crustType: newCrustTypeState };
+      const newCrustType = setSelection(state.crustType, action.id);
+      return { ...state, crustType: newCrustType };
     default:
       return state;
   }
