@@ -8,27 +8,43 @@ import OptionCheckBlock from "./tiles/OptionCheckBlock";
 import { chooseOption } from "../modules/pizzas";
 
 const Order = ({
-  pizzaSize,
-  crustType,
-  pizzaStyle,
+  pizzaSizes,
+  crustTypes,
+  pizzaStyles,
+  extraToppings,
   chooseOption,
   subtotalItems,
+  mdSizeSelected,
 }) => {
   const history = useHistory();
-  const cheesePizzas = pizzaStyle.filter((pizza) => pizza.type === "cheese");
-  const vegPizzas = pizzaStyle.filter((pizza) => pizza.type === "veg");
-  const meatPizzas = pizzaStyle.filter((pizza) => pizza.type === "meat");
+  const cheesePizzas = pizzaStyles.filter((pizza) => pizza.type === "cheese");
+  const vegPizzas = pizzaStyles.filter((pizza) => pizza.type === "veg");
+  const meatPizzas = pizzaStyles.filter((pizza) => pizza.type === "meat");
 
   const handleContinue = () => {
     history.push("/icarb/checkout");
   };
 
+  let pizzaImageURL = "/icarb/images/cheese.jpeg";
+  subtotalItems.forEach((item) => {
+    if (item.category === "Style") {
+      pizzaImageURL = `/icarb/images/${item.img}`;
+    }
+  });
+
+  const extraToppingTitle = mdSizeSelected
+    ? "Choose extra toppings. +$2.00 each"
+    : "Choose extra toppings. +$3.00 each";
+
   return (
     <Container className="mt-5 mx-auto">
       <Row>
         <Col md={6}>
-          <Image className="preview-img mb-3" src="/icarb/images/cheese.jpeg" />
-          <SubtotalContainer items={subtotalItems} />
+          <Image className="preview-img mb-3" src={pizzaImageURL} />
+          <SubtotalContainer
+            items={subtotalItems}
+            mdSizeSelected={mdSizeSelected}
+          />
           <div className="line-below">
             <Button className="mb-3" block={true} onClick={handleContinue}>
               Continue
@@ -57,14 +73,15 @@ const Order = ({
           </div>
           <OptionBlock
             title="Choose your size."
-            options={pizzaSize}
+            options={pizzaSizes}
             sizeBlock={true}
             selectFunction={chooseOption}
           />
           <OptionBlock
             title="Choose your crust."
-            options={crustType}
+            options={crustTypes}
             selectFunction={chooseOption}
+            mdSizeSelected={mdSizeSelected}
           />
           <div className="option-block">
             <div className="my-3 fw-5">Choose from our House Specials.</div>
@@ -73,52 +90,27 @@ const Order = ({
               subOptionBlock={true}
               options={cheesePizzas}
               selectFunction={chooseOption}
+              mdSizeSelected={mdSizeSelected}
             />
             <OptionBlock
               title="Veggie"
               subOptionBlock={true}
               options={vegPizzas}
               selectFunction={chooseOption}
+              mdSizeSelected={mdSizeSelected}
             />
             <OptionBlock
               title="Meat"
               subOptionBlock={true}
               options={meatPizzas}
               selectFunction={chooseOption}
+              mdSizeSelected={mdSizeSelected}
             />
           </div>
           <OptionCheckBlock
-            title="Choose extra toppings. +$2.50 each"
-            options={[
-              { id: 1, name: "Avocado" },
-              { id: 2, name: "Bacon" },
-              { id: 3, name: "Basil" },
-              { id: 4, name: "Buffalo Cauliflower" },
-              { id: 5, name: "Butternut Squash" },
-              { id: 6, name: "Caramelized Pears" },
-              { id: 7, name: "Cauliflower" },
-              { id: 8, name: "Cranberry" },
-              { id: 9, name: "Eggplant" },
-              { id: 10, name: "Fresh Pineapple" },
-              { id: 11, name: "Green Pepper" },
-              { id: 12, name: "Hot Honey" },
-              { id: 13, name: "Kalamata Olives" },
-              { id: 14, name: "Mango" },
-              { id: 15, name: "Mashed Potato" },
-              { id: 16, name: "Mushroom Medley" },
-              { id: 17, name: "Pepperoni" },
-              { id: 18, name: "Pulled Pork" },
-              { id: 19, name: "Red Peppadew Pepper" },
-              { id: 20, name: "Roasted Chicken" },
-              { id: 21, name: "Roasted Garlic" },
-              { id: 22, name: "Sausage" },
-              { id: 23, name: "Scallions" },
-              { id: 24, name: "Spicy Pulled Pork" },
-              { id: 25, name: "Spinach" },
-              { id: 26, name: "Sriracha Chicken" },
-              { id: 27, name: "Tomato" },
-              { id: 28, name: "Vidalia Onion" },
-            ]}
+            title={extraToppingTitle}
+            options={extraToppings}
+            selectFunction={chooseOption}
           />
         </Col>
       </Row>
@@ -128,15 +120,19 @@ const Order = ({
 
 const mapStateToProps = (state) => {
   return {
-    pizzaSize: state.pizzas.pizzaOptions.filter((option) => {
+    pizzaSizes: state.pizzas.pizzaOptions.filter((option) => {
       return option.category === "Size";
     }),
-    crustType: state.pizzas.pizzaOptions.filter((option) => {
+    crustTypes: state.pizzas.pizzaOptions.filter((option) => {
       return option.category === "Crust";
     }),
-    pizzaStyle: state.pizzas.pizzaOptions.filter((option) => {
+    pizzaStyles: state.pizzas.pizzaOptions.filter((option) => {
       return option.category === "Style";
     }),
+    extraToppings: state.pizzas.pizzaOptions.filter((option) => {
+      return option.category === "Extra Topping";
+    }),
+    mdSizeSelected: state.pizzas.mdSizeSelected,
     subtotalItems: state.pizzas.subtotalItems,
   };
 };

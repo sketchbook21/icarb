@@ -1,12 +1,23 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 
-const SubtotalContainer = ({ items }) => {
+const SubtotalContainer = ({ items, mdSizeSelected }) => {
   let totalValue = 0;
   let displayTotalValue = "";
+
+  console.log("inside subtotalcontainer", mdSizeSelected);
+
   const displayItems = items.map((item) => {
-    totalValue += item.value1;
+    let value = item.value1;
+    let displayValue = item.displayValue1;
+
+    if (!mdSizeSelected && item.value2) {
+      value = item.value2;
+      displayValue = item.displayValue2;
+    }
+    totalValue += value;
     displayTotalValue = `$${(totalValue / 100).toFixed(2)}`;
+
     return (
       <Row
         key={item.id}
@@ -14,12 +25,13 @@ const SubtotalContainer = ({ items }) => {
         className="d-flex justify-content-between my-2"
       >
         <div>
-          {item.category}: {item.name}
+          {item.category}: <span className="fw-5">{item.name}</span>
         </div>
-        <div>{item.displayValue1}</div>
+        <div>{displayValue}</div>
       </Row>
     );
   });
+
   return (
     <Container className="subtotal-container mb-3">
       <Row className="subtotal-title py-2 fw-5 d-flex justify-content-between">
