@@ -5,8 +5,6 @@ const SubtotalContainer = ({ items, mdSizeSelected }) => {
   let totalValue = 0;
   let displayTotalValue = "";
 
-  console.log("inside subtotalcontainer", mdSizeSelected);
-
   const displayItems = items.map((item) => {
     let value = item.value1;
     let displayValue = item.displayValue1;
