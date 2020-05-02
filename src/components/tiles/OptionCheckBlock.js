@@ -1,7 +1,7 @@
 import React from "react";
 import { Form, Col, Row } from "react-bootstrap";
 
-const OptionCheckBlock = ({ title, options }) => {
+const OptionCheckBlock = ({ title, options, selectFunction }) => {
   const displayOptions = options.map((option) => {
     return (
       <Col key={option.id} md={6} className="mb-2">
@@ -9,7 +9,7 @@ const OptionCheckBlock = ({ title, options }) => {
           type="checkbox"
           id={option.name}
           label={option.name}
-          onClick={() => alert(`You selected ${option.name}!`)}
+          onClick={() => selectFunction(option.category, option.id)}
         />
       </Col>
     );

@@ -7,6 +7,7 @@ const OptionBlock = ({
   subOptionBlock = null,
   sizeBlock = null,
   selectFunction,
+  mdSizeSelected,
 }) => {
   let displayTitleClass = "my-3 fw-5";
   let displayOptionBlockClass = "option-block";
@@ -15,8 +16,12 @@ const OptionBlock = ({
     displayOptionBlockClass = "suboption-block";
   }
 
+  const addPlus = sizeBlock ? "" : "+";
+
   const displayOptions = options.map((option) => {
-    let displayPrice = sizeBlock ? option.displayValue : option.mdDisplayValue;
+    let displayPrice = mdSizeSelected
+      ? option.displayValue1
+      : option.displayValue2;
     return (
       <Row key={option.id}>
         <Button
@@ -24,10 +29,13 @@ const OptionBlock = ({
           variant="outline-primary"
           disabled={option.disabled}
           active={option.active}
-          onClick={() => selectFunction(option.id)}
+          onClick={() => selectFunction(option.category, option.id)}
         >
           <span>{option.name}</span>
-          <span>{displayPrice}</span>
+          <span>
+            {addPlus}
+            {displayPrice}
+          </span>
         </Button>
       </Row>
     );
