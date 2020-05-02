@@ -5,19 +5,19 @@ import { useHistory } from "react-router";
 import SubtotalContainer from "./containers/SubtotalContainer";
 import OptionBlock from "./tiles/OptionBlock";
 import OptionCheckBlock from "./tiles/OptionCheckBlock";
-import { chooseSize, chooseCrust } from "../modules/pizzas";
+import { chooseOption } from "../modules/pizzas";
 
 const Order = ({
   pizzaSize,
   crustType,
-  pizzaList,
-  chooseSize,
-  chooseCrust,
+  pizzaStyle,
+  chooseOption,
+  subtotalItems,
 }) => {
   const history = useHistory();
-  const cheesePizzas = pizzaList.filter((pizza) => pizza.type === "cheese");
-  const vegPizzas = pizzaList.filter((pizza) => pizza.type === "veg");
-  const meatPizzas = pizzaList.filter((pizza) => pizza.type === "meat");
+  const cheesePizzas = pizzaStyle.filter((pizza) => pizza.type === "cheese");
+  const vegPizzas = pizzaStyle.filter((pizza) => pizza.type === "veg");
+  const meatPizzas = pizzaStyle.filter((pizza) => pizza.type === "meat");
 
   const handleContinue = () => {
     history.push("/icarb/checkout");
@@ -28,45 +28,7 @@ const Order = ({
       <Row>
         <Col md={6}>
           <Image className="preview-img mb-3" src="/icarb/images/cheese.jpeg" />
-          <SubtotalContainer
-            items={[
-              {
-                id: 1,
-                name: "Sriracha Chicken & Avocado",
-                value: "+$3.50",
-                selected: false,
-                disabled: false,
-              },
-              {
-                id: 2,
-                name: "Spicy Pulled Pork with Scallion",
-                value: "+$3.50",
-                selected: false,
-                disabled: false,
-              },
-              {
-                id: 3,
-                name: "Sriracha Chicken & Avocado",
-                value: "+$3.50",
-                selected: false,
-                disabled: false,
-              },
-              {
-                id: 4,
-                name: "Spicy Pulled Pork with Scallion",
-                value: "+$3.50",
-                selected: false,
-                disabled: false,
-              },
-              {
-                id: 5,
-                name: "Sriracha Chicken & Avocado",
-                value: "+$3.50",
-                selected: false,
-                disabled: false,
-              },
-            ]}
-          />
+          <SubtotalContainer items={subtotalItems} />
           <div className="line-below">
             <Button className="mb-3" block={true} onClick={handleContinue}>
               Continue
@@ -97,12 +59,12 @@ const Order = ({
             title="Choose your size."
             options={pizzaSize}
             sizeBlock={true}
-            selectFunction={chooseSize}
+            selectFunction={chooseOption}
           />
           <OptionBlock
             title="Choose your crust."
             options={crustType}
-            selectFunction={chooseCrust}
+            selectFunction={chooseOption}
           />
           <div className="option-block">
             <div className="my-3 fw-5">Choose from our House Specials.</div>
@@ -110,16 +72,19 @@ const Order = ({
               title="Cheese"
               subOptionBlock={true}
               options={cheesePizzas}
+              selectFunction={chooseOption}
             />
             <OptionBlock
               title="Veggie"
               subOptionBlock={true}
               options={vegPizzas}
+              selectFunction={chooseOption}
             />
             <OptionBlock
               title="Meat"
               subOptionBlock={true}
               options={meatPizzas}
+              selectFunction={chooseOption}
             />
           </div>
           <OptionCheckBlock
@@ -163,16 +128,23 @@ const Order = ({
 
 const mapStateToProps = (state) => {
   return {
-    pizzaSize: state.pizzas.pizzaSize,
-    crustType: state.pizzas.crustType,
-    pizzaList: state.pizzas.pizzaList,
+    pizzaSize: state.pizzas.pizzaOptions.filter((option) => {
+      return option.category === "Size";
+    }),
+    crustType: state.pizzas.pizzaOptions.filter((option) => {
+      return option.category === "Crust";
+    }),
+    pizzaStyle: state.pizzas.pizzaOptions.filter((option) => {
+      return option.category === "Style";
+    }),
+    subtotalItems: state.pizzas.subtotalItems,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    chooseSize: (sizeId) => dispatch(chooseSize(sizeId)),
-    chooseCrust: (sizeId) => dispatch(chooseCrust(sizeId)),
+    chooseOption: (category, toppingId) =>
+      dispatch(chooseOption(category, toppingId)),
   };
 };
 

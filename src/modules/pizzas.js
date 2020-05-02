@@ -1,22 +1,14 @@
-import { pizzaList } from "../data/pizzaConstants";
-import { pizzaSize, crustType } from "../data/generalConstants";
+import { pizzaSize, crustType, pizzaStyle } from "../data/pizzaConstants";
 
 // Action type constants
-const CHOOSE_SIZE = "CHOOSE_SIZE";
-const CHOOSE_CRUST = "CHOOSE_CRUST";
+const CHOOSE_OPTION = "CHOOSE_OPTION";
 
 // Action creators
 
-const chooseSize = (id) => {
+const chooseOption = (category, id) => {
   return {
-    type: CHOOSE_SIZE,
-    id,
-  };
-};
-
-const chooseCrust = (id) => {
-  return {
-    type: CHOOSE_CRUST,
+    type: CHOOSE_OPTION,
+    category: category,
     id,
   };
 };
@@ -24,31 +16,46 @@ const chooseCrust = (id) => {
 // Reducer and its initialState
 
 const initialState = {
-  pizzaSize,
-  crustType,
-  pizzaList,
+  pizzaOptions: [...pizzaSize, ...crustType, ...pizzaStyle],
+  subtotalItems: [],
 };
 
-const setSelection = (array, id) => {
-  const newArray = array.concat();
+const setSelection = (pizzaOptions, category, id) => {
+  const newArray = pizzaOptions.concat();
   newArray.forEach((item) => {
-    if (item.id === id) {
-      item["active"] = true;
-    } else {
-      item["active"] = false;
+    if (item.category === category) {
+      if (item.id === id) {
+        item["active"] = true;
+      } else {
+        item["active"] = false;
+      }
     }
   });
   return newArray;
 };
 
+const addToSubtotal = (newPizzaOptionsState) => {
+  const newSubtotalItems = newPizzaOptionsState.filter((item) => {
+    return item.active === true;
+  });
+
+  return newSubtotalItems;
+};
+
 const pizzas = (state = initialState, action) => {
   switch (action.type) {
-    case CHOOSE_SIZE:
-      const newPizzaSize = setSelection(state.pizzaSize, action.id);
-      return { ...state, pizzaSize: newPizzaSize };
-    case CHOOSE_CRUST:
-      const newCrustType = setSelection(state.crustType, action.id);
-      return { ...state, crustType: newCrustType };
+    case CHOOSE_OPTION:
+      const newPizzaOptionsState = setSelection(
+        state.pizzaOptions,
+        action.category,
+        action.id
+      );
+      const newSubtotalItems = addToSubtotal(newPizzaOptionsState);
+      return {
+        ...state,
+        pizzaOptions: newPizzaOptionsState,
+        subtotalItems: newSubtotalItems,
+      };
     default:
       return state;
   }
@@ -56,4 +63,4 @@ const pizzas = (state = initialState, action) => {
 
 // Export statement
 
-export { pizzas, chooseSize, chooseCrust };
+export { pizzas, chooseOption };
