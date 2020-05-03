@@ -7,6 +7,7 @@ import {
 
 // Action type constants
 const CHOOSE_OPTION = "CHOOSE_OPTION";
+const RESET_ORDER = "RESET_ORDER";
 
 // Action creators
 
@@ -15,6 +16,12 @@ const chooseOption = (category, id) => {
     type: CHOOSE_OPTION,
     category: category,
     id,
+  };
+};
+
+const resetOrder = () => {
+  return {
+    type: RESET_ORDER,
   };
 };
 
@@ -93,7 +100,17 @@ const pizzas = (state = initialState, action) => {
         pizzaOptions: newPizzaOptionsState,
         subtotalItems: newSubtotalItems,
       };
-
+    case RESET_ORDER:
+      const resetPizzaOptions = state.pizzaOptions.concat();
+      resetPizzaOptions.forEach((option) => {
+        option.active = false;
+      });
+      const resetSubtotalItems = [];
+      return {
+        ...state,
+        pizzaOptions: resetPizzaOptions,
+        subtotalItems: resetSubtotalItems,
+      };
     default:
       return state;
   }
@@ -101,4 +118,4 @@ const pizzas = (state = initialState, action) => {
 
 // Export statement
 
-export { pizzas, chooseOption };
+export { pizzas, chooseOption, resetOrder };

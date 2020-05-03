@@ -15,6 +15,7 @@ const OptionCheckBlock = ({
       <Col key={option.id} md={6} className="mb-2">
         <Form.Check
           type="checkbox"
+          checked={option.active}
           id={option.name}
           label={option.name}
           disabled={!prevBlockSelected}

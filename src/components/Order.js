@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Container, Row, Col, Button, Image } from "react-bootstrap";
 import { useHistory } from "react-router";
+import { chooseOption, resetOrder } from "../modules/pizzas";
 import SubtotalContainer from "./containers/SubtotalContainer";
 import OptionBlock from "./tiles/OptionBlock";
 import OptionCheckBlock from "./tiles/OptionCheckBlock";
-import { chooseOption } from "../modules/pizzas";
+import ResetModal from "./ResetModal";
 
 const Order = ({
   pizzaSizes,
@@ -15,7 +16,9 @@ const Order = ({
   chooseOption,
   subtotalItems,
   mdSizeSelected,
+  resetOrder,
 }) => {
+  const [modalShow, setModalShow] = useState(false);
   const history = useHistory();
   const cheesePizzas = pizzaStyles.filter((pizza) => pizza.type === "cheese");
   const vegPizzas = pizzaStyles.filter((pizza) => pizza.type === "veg");
@@ -52,6 +55,8 @@ const Order = ({
     ? "my-3 fw-5"
     : "my-3 fw-5 disabled-block";
 
+  const checkoutDisabled = subtotalItems.length > 2 ? false : true;
+
   return (
     <Container className="mt-5 mx-auto">
       <Row>
@@ -62,13 +67,19 @@ const Order = ({
             mdSizeSelected={mdSizeSelected}
           />
           <div className="line-below">
-            <Button className="mb-3" block={true} onClick={handleContinue}>
+            <Button
+              className="mb-3"
+              block={true}
+              disabled={checkoutDisabled}
+              onClick={handleContinue}
+            >
               Continue
             </Button>
             <Button
               className="mb-3"
               variant="outline-info"
               block={true}
+              disabled={checkoutDisabled}
               onClick={() => alert("add to cart")}
             >
               Add To Cart & Build Another
@@ -77,7 +88,7 @@ const Order = ({
           <Button
             variant="outline-danger"
             block={true}
-            onClick={() => alert("reset")}
+            onClick={() => setModalShow(true)}
           >
             Reset Order
           </Button>
@@ -138,6 +149,11 @@ const Order = ({
           />
         </Col>
       </Row>
+      <ResetModal
+        show={modalShow}
+        onHide={() => setModalShow(false)}
+        resetOrder={() => resetOrder()}
+      />
     </Container>
   );
 };
@@ -165,6 +181,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     chooseOption: (category, toppingId) =>
       dispatch(chooseOption(category, toppingId)),
+    resetOrder: () => dispatch(resetOrder()),
   };
 };
 
