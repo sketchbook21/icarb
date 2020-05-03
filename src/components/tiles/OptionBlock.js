@@ -8,12 +8,23 @@ const OptionBlock = ({
   sizeBlock = null,
   selectFunction,
   mdSizeSelected,
+  prevBlockSelected = false,
 }) => {
   let displayTitleClass = "my-3 fw-5";
   let displayOptionBlockClass = "option-block";
-  if (subOptionBlock) {
-    displayTitleClass = "my-3 fs-4";
-    displayOptionBlockClass = "suboption-block";
+
+  if (!prevBlockSelected) {
+    displayTitleClass = "my-3 fw-5 disabled-block";
+    displayOptionBlockClass = "option-block disabled-block";
+    if (subOptionBlock) {
+      displayTitleClass = "my-3 fs-4 disabled-block";
+      displayOptionBlockClass = "suboption-block disabled-block";
+    }
+  } else {
+    if (subOptionBlock) {
+      displayTitleClass = "my-3 fs-4";
+      displayOptionBlockClass = "suboption-block";
+    }
   }
 
   const addPlus = sizeBlock ? "" : "+";
@@ -27,7 +38,7 @@ const OptionBlock = ({
         <Button
           className="option-button d-flex justify-content-between"
           variant="outline-primary"
-          disabled={option.disabled}
+          disabled={!prevBlockSelected}
           active={option.active}
           onClick={() => selectFunction(option.category, option.id)}
         >
