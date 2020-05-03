@@ -32,9 +32,25 @@ const Order = ({
     }
   });
 
+  const blockSelected = (array, category) => {
+    const items = array.filter((item) => item.category === category);
+    if (items.length > 0) {
+      return true;
+    }
+    return false;
+  };
+
+  const sizeSelected = blockSelected(subtotalItems, "Size");
+  const crustSelected = blockSelected(subtotalItems, "Crust");
+  const styleSelected = blockSelected(subtotalItems, "Style");
+
   const extraToppingTitle = mdSizeSelected
     ? "Choose extra toppings. +$2.00 each"
     : "Choose extra toppings. +$3.00 each";
+
+  const pizzaStyleClassName = crustSelected
+    ? "my-3 fw-5"
+    : "my-3 fw-5 disabled-block";
 
   return (
     <Container className="mt-5 mx-auto">
@@ -76,21 +92,26 @@ const Order = ({
             options={pizzaSizes}
             sizeBlock={true}
             selectFunction={chooseOption}
+            prevBlockSelected={true}
           />
           <OptionBlock
             title="Choose your crust."
             options={crustTypes}
             selectFunction={chooseOption}
             mdSizeSelected={mdSizeSelected}
+            prevBlockSelected={sizeSelected}
           />
           <div className="option-block">
-            <div className="my-3 fw-5">Choose from our House Specials.</div>
+            <div className={pizzaStyleClassName}>
+              Choose from our House Specials.
+            </div>
             <OptionBlock
               title="Cheese"
               subOptionBlock={true}
               options={cheesePizzas}
               selectFunction={chooseOption}
               mdSizeSelected={mdSizeSelected}
+              prevBlockSelected={crustSelected}
             />
             <OptionBlock
               title="Veggie"
@@ -98,6 +119,7 @@ const Order = ({
               options={vegPizzas}
               selectFunction={chooseOption}
               mdSizeSelected={mdSizeSelected}
+              prevBlockSelected={crustSelected}
             />
             <OptionBlock
               title="Meat"
@@ -105,12 +127,14 @@ const Order = ({
               options={meatPizzas}
               selectFunction={chooseOption}
               mdSizeSelected={mdSizeSelected}
+              prevBlockSelected={crustSelected}
             />
           </div>
           <OptionCheckBlock
             title={extraToppingTitle}
             options={extraToppings}
             selectFunction={chooseOption}
+            prevBlockSelected={styleSelected}
           />
         </Col>
       </Row>

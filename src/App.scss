@@ -143,6 +143,10 @@ body {
   border-bottom: 1px solid rgb(199, 199, 199);
 }
 
+.disabled-block {
+  color: rgb(199, 199, 199);
+}
+
 @media (max-width: 600px) {
   .fs-1 {
     font-size: 3em;

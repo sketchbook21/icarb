@@ -1,7 +1,15 @@
 import React from "react";
 import { Form, Col, Row } from "react-bootstrap";
 
-const OptionCheckBlock = ({ title, options, selectFunction }) => {
+const OptionCheckBlock = ({
+  title,
+  options,
+  selectFunction,
+  prevBlockSelected,
+}) => {
+  const displayTitleClass = prevBlockSelected
+    ? "my-3 fw-5"
+    : "my-3 fw-5 disabled-block";
   const displayOptions = options.map((option) => {
     return (
       <Col key={option.id} md={6} className="mb-2">
@@ -9,6 +17,7 @@ const OptionCheckBlock = ({ title, options, selectFunction }) => {
           type="checkbox"
           id={option.name}
           label={option.name}
+          disabled={!prevBlockSelected}
           onClick={() => selectFunction(option.category, option.id)}
         />
       </Col>
@@ -16,7 +25,7 @@ const OptionCheckBlock = ({ title, options, selectFunction }) => {
   });
   return (
     <div className="option-block">
-      <div className="my-3 fw-5">{title}</div>
+      <div className={displayTitleClass}>{title}</div>
       <Row>{displayOptions}</Row>
     </div>
   );

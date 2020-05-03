@@ -18,13 +18,15 @@ const chooseOption = (category, id) => {
   };
 };
 
-// Reducer and its initialState
+// initialState
 
 const initialState = {
   pizzaOptions: [...pizzaSize, ...crustType, ...pizzaStyle, ...extraToppings],
   mdSizeSelected: true,
   subtotalItems: [],
 };
+
+// misc functions
 
 const setSelection = (pizzaOptions, category, id) => {
   const newArray = pizzaOptions.concat();
@@ -63,6 +65,8 @@ const changeSizeSelection = (id) => {
   }
   return mdSizeSelected;
 };
+
+// reducer
 
 const pizzas = (state = initialState, action) => {
   switch (action.type) {

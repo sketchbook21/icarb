@@ -23,7 +23,6 @@ export const pizzaSize = [
     value1: MEDIUM,
     displayValue1: convertToDisplayValue(MEDIUM),
     active: false,
-    disabled: false,
   },
   {
     id: 2,
@@ -32,7 +31,6 @@ export const pizzaSize = [
     value1: LARGE,
     displayValue1: convertToDisplayValue(LARGE),
     active: false,
-    disabled: false,
   },
 ];
 
@@ -46,7 +44,6 @@ export const crustType = [
     displayValue1: convertToDisplayValue(REG_CRUST),
     displayValue2: convertToDisplayValue(REG_CRUST),
     active: false,
-    disabled: false,
   },
   {
     id: 4,
@@ -57,7 +54,6 @@ export const crustType = [
     displayValue1: convertToDisplayValue(MD_GF_CRUST),
     displayValue2: convertToDisplayValue(LG_GF_CRUST),
     active: false,
-    disabled: false,
   },
 ];
 
@@ -73,7 +69,6 @@ export const pizzaStyle = [
     displayValue1: convertToDisplayValue(BASE),
     displayValue2: convertToDisplayValue(BASE),
     active: false,
-    disabled: false,
   },
   {
     id: 6,
@@ -86,7 +81,6 @@ export const pizzaStyle = [
     displayValue1: convertToDisplayValue(MD_VALUE_1),
     displayValue2: convertToDisplayValue(LG_VALUE_1),
     active: false,
-    disabled: false,
   },
   {
     id: 7,
@@ -99,7 +93,6 @@ export const pizzaStyle = [
     displayValue1: convertToDisplayValue(MD_VALUE_2),
     displayValue2: convertToDisplayValue(LG_VALUE_2),
     active: false,
-    disabled: false,
   },
   {
     id: 8,
@@ -112,7 +105,6 @@ export const pizzaStyle = [
     displayValue1: convertToDisplayValue(MD_VALUE_1),
     displayValue2: convertToDisplayValue(LG_VALUE_1),
     active: false,
-    disabled: false,
   },
   {
     id: 9,
@@ -125,7 +117,6 @@ export const pizzaStyle = [
     displayValue1: convertToDisplayValue(MD_VALUE_2),
     displayValue2: convertToDisplayValue(LG_VALUE_2),
     active: false,
-    disabled: false,
   },
   {
     id: 10,
@@ -138,7 +129,6 @@ export const pizzaStyle = [
     displayValue1: convertToDisplayValue(MD_VALUE_2),
     displayValue2: convertToDisplayValue(LG_VALUE_2),
     active: false,
-    disabled: false,
   },
   {
     id: 11,
@@ -151,7 +141,6 @@ export const pizzaStyle = [
     displayValue1: convertToDisplayValue(MD_VALUE_2),
     displayValue2: convertToDisplayValue(LG_VALUE_2),
     active: false,
-    disabled: false,
   },
   {
     id: 12,
@@ -164,7 +153,6 @@ export const pizzaStyle = [
     displayValue1: convertToDisplayValue(MD_VALUE_2),
     displayValue2: convertToDisplayValue(LG_VALUE_2),
     active: false,
-    disabled: false,
   },
   {
     id: 13,
@@ -177,7 +165,6 @@ export const pizzaStyle = [
     displayValue1: convertToDisplayValue(MD_VALUE_1),
     displayValue2: convertToDisplayValue(LG_VALUE_1),
     active: false,
-    disabled: false,
   },
   {
     id: 14,
@@ -190,7 +177,6 @@ export const pizzaStyle = [
     displayValue1: convertToDisplayValue(MD_VALUE_2),
     displayValue2: convertToDisplayValue(LG_VALUE_2),
     active: false,
-    disabled: false,
   },
   {
     id: 15,
@@ -203,7 +189,6 @@ export const pizzaStyle = [
     displayValue1: convertToDisplayValue(MD_VALUE_2),
     displayValue2: convertToDisplayValue(LG_VALUE_2),
     active: false,
-    disabled: false,
   },
   {
     id: 16,
@@ -216,7 +201,6 @@ export const pizzaStyle = [
     displayValue1: convertToDisplayValue(MD_VALUE_2),
     displayValue2: convertToDisplayValue(LG_VALUE_2),
     active: false,
-    disabled: false,
   },
   {
     id: 17,
@@ -229,7 +213,6 @@ export const pizzaStyle = [
     displayValue1: convertToDisplayValue(MD_VALUE_2),
     displayValue2: convertToDisplayValue(LG_VALUE_2),
     active: false,
-    disabled: false,
   },
 ];
 
@@ -243,7 +226,6 @@ export const extraToppings = [
     value2: EXTRA_TOPPING_2,
     displayValue2: convertToDisplayValue(EXTRA_TOPPING_2),
     active: false,
-    disabled: false,
   },
   {
     id: 19,
@@ -254,7 +236,6 @@ export const extraToppings = [
     value2: EXTRA_TOPPING_2,
     displayValue2: convertToDisplayValue(EXTRA_TOPPING_2),
     active: false,
-    disabled: false,
   },
   {
     id: 20,
@@ -265,7 +246,6 @@ export const extraToppings = [
     value2: EXTRA_TOPPING_2,
     displayValue2: convertToDisplayValue(EXTRA_TOPPING_2),
     active: false,
-    disabled: false,
   },
   {
     id: 21,
@@ -276,7 +256,6 @@ export const extraToppings = [
     value2: EXTRA_TOPPING_2,
     displayValue2: convertToDisplayValue(EXTRA_TOPPING_2),
     active: false,
-    disabled: false,
   },
   {
     id: 22,
@@ -287,7 +266,6 @@ export const extraToppings = [
     value2: EXTRA_TOPPING_2,
     displayValue2: convertToDisplayValue(EXTRA_TOPPING_2),
     active: false,
-    disabled: false,
   },
   {
     id: 23,
@@ -298,7 +276,6 @@ export const extraToppings = [
     value2: EXTRA_TOPPING_2,
     displayValue2: convertToDisplayValue(EXTRA_TOPPING_2),
     active: false,
-    disabled: false,
   },
   {
     id: 24,
@@ -309,7 +286,6 @@ export const extraToppings = [
     value2: EXTRA_TOPPING_2,
     displayValue2: convertToDisplayValue(EXTRA_TOPPING_2),
     active: false,
-    disabled: false,
   },
   {
     id: 25,
@@ -320,7 +296,6 @@ export const extraToppings = [
     value2: EXTRA_TOPPING_2,
     displayValue2: convertToDisplayValue(EXTRA_TOPPING_2),
     active: false,
-    disabled: false,
   },
   {
     id: 26,
@@ -331,7 +306,6 @@ export const extraToppings = [
     value2: EXTRA_TOPPING_2,
     displayValue2: convertToDisplayValue(EXTRA_TOPPING_2),
     active: false,
-    disabled: false,
   },
   {
     id: 27,
@@ -342,7 +316,6 @@ export const extraToppings = [
     value2: EXTRA_TOPPING_2,
     displayValue2: convertToDisplayValue(EXTRA_TOPPING_2),
     active: false,
-    disabled: false,
   },
   {
     id: 28,
@@ -353,7 +326,6 @@ export const extraToppings = [
     value2: EXTRA_TOPPING_2,
     displayValue2: convertToDisplayValue(EXTRA_TOPPING_2),
     active: false,
-    disabled: false,
   },
   {
     id: 29,
@@ -364,7 +336,6 @@ export const extraToppings = [
     value2: EXTRA_TOPPING_2,
     displayValue2: convertToDisplayValue(EXTRA_TOPPING_2),
     active: false,
-    disabled: false,
   },
   {
     id: 30,
@@ -375,7 +346,6 @@ export const extraToppings = [
     value2: EXTRA_TOPPING_2,
     displayValue2: convertToDisplayValue(EXTRA_TOPPING_2),
     active: false,
-    disabled: false,
   },
   {
     id: 31,
@@ -386,7 +356,6 @@ export const extraToppings = [
     value2: EXTRA_TOPPING_2,
     displayValue2: convertToDisplayValue(EXTRA_TOPPING_2),
     active: false,
-    disabled: false,
   },
   {
     id: 32,
@@ -397,7 +366,6 @@ export const extraToppings = [
     value2: EXTRA_TOPPING_2,
     displayValue2: convertToDisplayValue(EXTRA_TOPPING_2),
     active: false,
-    disabled: false,
   },
   {
     id: 33,
@@ -408,7 +376,6 @@ export const extraToppings = [
     value2: EXTRA_TOPPING_2,
     displayValue2: convertToDisplayValue(EXTRA_TOPPING_2),
     active: false,
-    disabled: false,
   },
   {
     id: 34,
@@ -419,7 +386,6 @@ export const extraToppings = [
     value2: EXTRA_TOPPING_2,
     displayValue2: convertToDisplayValue(EXTRA_TOPPING_2),
     active: false,
-    disabled: false,
   },
   {
     id: 35,
@@ -430,7 +396,6 @@ export const extraToppings = [
     value2: EXTRA_TOPPING_2,
     displayValue2: convertToDisplayValue(EXTRA_TOPPING_2),
     active: false,
-    disabled: false,
   },
   {
     id: 36,
@@ -441,7 +406,6 @@ export const extraToppings = [
     value2: EXTRA_TOPPING_2,
     displayValue2: convertToDisplayValue(EXTRA_TOPPING_2),
     active: false,
-    disabled: false,
   },
   {
     id: 37,
@@ -452,7 +416,6 @@ export const extraToppings = [
     value2: EXTRA_TOPPING_2,
     displayValue2: convertToDisplayValue(EXTRA_TOPPING_2),
     active: false,
-    disabled: false,
   },
   {
     id: 38,
@@ -463,7 +426,6 @@ export const extraToppings = [
     value2: EXTRA_TOPPING_2,
     displayValue2: convertToDisplayValue(EXTRA_TOPPING_2),
     active: false,
-    disabled: false,
   },
   {
     id: 39,
@@ -474,7 +436,6 @@ export const extraToppings = [
     value2: EXTRA_TOPPING_2,
     displayValue2: convertToDisplayValue(EXTRA_TOPPING_2),
     active: false,
-    disabled: false,
   },
   {
     id: 40,
@@ -485,7 +446,6 @@ export const extraToppings = [
     value2: EXTRA_TOPPING_2,
     displayValue2: convertToDisplayValue(EXTRA_TOPPING_2),
     active: false,
-    disabled: false,
   },
   {
     id: 41,
@@ -496,7 +456,6 @@ export const extraToppings = [
     value2: EXTRA_TOPPING_2,
     displayValue2: convertToDisplayValue(EXTRA_TOPPING_2),
     active: false,
-    disabled: false,
   },
   {
     id: 42,
@@ -507,7 +466,6 @@ export const extraToppings = [
     value2: EXTRA_TOPPING_2,
     displayValue2: convertToDisplayValue(EXTRA_TOPPING_2),
     active: false,
-    disabled: false,
   },
   {
     id: 43,
@@ -518,7 +476,6 @@ export const extraToppings = [
     value2: EXTRA_TOPPING_2,
     displayValue2: convertToDisplayValue(EXTRA_TOPPING_2),
     active: false,
-    disabled: false,
   },
   {
     id: 44,
@@ -529,7 +486,6 @@ export const extraToppings = [
     value2: EXTRA_TOPPING_2,
     displayValue2: convertToDisplayValue(EXTRA_TOPPING_2),
     active: false,
-    disabled: false,
   },
   {
     id: 45,
@@ -540,6 +496,5 @@ export const extraToppings = [
     value2: EXTRA_TOPPING_2,
     displayValue2: convertToDisplayValue(EXTRA_TOPPING_2),
     active: false,
-    disabled: false,
   },
 ];
