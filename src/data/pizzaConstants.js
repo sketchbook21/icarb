@@ -8,8 +8,8 @@ const LARGE = 1650;
 const REG_CRUST = 0;
 const MD_GF_CRUST = 200;
 const LG_GF_CRUST = 300;
-const EXTRA_TOPPING_1 = 200;
-const EXTRA_TOPPING_2 = 300;
+const EXTRA_TOPPING_1 = 150;
+const EXTRA_TOPPING_2 = 250;
 
 const convertToDisplayValue = (value) => {
   return `$${(value / 100).toFixed(2)}`;

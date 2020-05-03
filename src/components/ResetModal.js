@@ -15,8 +15,8 @@ const ResetModal = (props) => {
       centered
     >
       <Modal.Header>
-        <div className="fs-3 fw-5" id="contained-modal-title-vcenter">
-          Are you sure you want to reset this order?
+        <div className="fw-5" id="contained-modal-title-vcenter">
+          Are you sure you want to reset this pizza?
         </div>
       </Modal.Header>
 

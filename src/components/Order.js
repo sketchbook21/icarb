@@ -48,8 +48,8 @@ const Order = ({
   const styleSelected = blockSelected(subtotalItems, "Style");
 
   const extraToppingTitle = mdSizeSelected
-    ? "Choose extra toppings. +$2.00 each"
-    : "Choose extra toppings. +$3.00 each";
+    ? "Choose extra toppings. +$1.50 each"
+    : "Choose extra toppings. +$2.50 each";
 
   const pizzaStyleClassName = crustSelected
     ? "my-3 fw-5"
@@ -90,7 +90,7 @@ const Order = ({
             block={true}
             onClick={() => setModalShow(true)}
           >
-            Reset Order
+            Reset
           </Button>
         </Col>
         <Col md={6} className="order-options-column">
