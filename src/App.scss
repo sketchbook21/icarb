@@ -24,19 +24,23 @@ body {
 }
 
 .fs-1 {
-  font-size: 4em;
+  font-size: 4rem;
 }
 
 .fs-2 {
-  font-size: 2em;
+  font-size: 2rem;
 }
 
 .fs-3 {
-  font-size: 1.25em;
+  font-size: 1.25rem;
 }
 
 .fs-4 {
-  font-size: 0.9em;
+  font-size: 0.9rem;
+}
+
+.fs-5 {
+  font-size: 0.8rem;
 }
 
 .fw-3 {
@@ -145,6 +149,25 @@ body {
 
 .disabled-block {
   color: rgb(199, 199, 199);
+}
+
+.checkout-item {
+  padding: 2em 0;
+  border-top: 1px solid rgb(199, 199, 199);
+}
+
+.checkout-item-image {
+  height: 10em;
+  width: 15em;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.button-text-only {
+  font-size: 0.9rem;
+  font-weight: 400;
+  padding: 0;
+  margin: 0;
 }
 
 @media (max-width: 600px) {

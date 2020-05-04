@@ -12,16 +12,15 @@ const Checkout = ({ cart, cartTotal, displayCartTotal }) => {
   return (
     <Container className="">
       <Row className="my-5">
-        <Col className="fs-2 mb-3 fw-5 d-flex justify-content-center" md={12}>
+        <Col className="fs-2 mb-3 fw-7 d-flex justify-content-center" md={12}>
           Your order total is {displayCartTotal}
         </Col>
         <Col className="d-flex justify-content-center" md={12}>
           Someone is hungry.
         </Col>
       </Row>
-      <Row>
-        <Col md={12}>{displayCart}</Col>
-      </Row>
+
+      {displayCart}
     </Container>
   );
 };
