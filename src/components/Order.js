@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Container, Row, Col, Button, Image } from "react-bootstrap";
 import { useHistory } from "react-router";
-import { chooseOption, resetOrder } from "../modules/pizzas";
+import { chooseOption, resetOrder, addToCart } from "../modules/pizzas";
 import SubtotalContainer from "./containers/SubtotalContainer";
 import OptionBlock from "./tiles/OptionBlock";
 import OptionCheckBlock from "./tiles/OptionCheckBlock";
@@ -17,6 +17,7 @@ const Order = ({
   subtotalItems,
   mdSizeSelected,
   resetOrder,
+  addToCart,
 }) => {
   const [modalShow, setModalShow] = useState(false);
   const history = useHistory();
@@ -25,6 +26,7 @@ const Order = ({
   const meatPizzas = pizzaStyles.filter((pizza) => pizza.type === "meat");
 
   const handleContinue = () => {
+    addToCart();
     history.push("/icarb/checkout");
   };
 
@@ -159,6 +161,7 @@ const Order = ({
 };
 
 const mapStateToProps = (state) => {
+  console.log("cart", state.pizzas.cart);
   return {
     pizzaSizes: state.pizzas.pizzaOptions.filter((option) => {
       return option.category === "Size";
@@ -182,6 +185,7 @@ const mapDispatchToProps = (dispatch) => {
     chooseOption: (category, toppingId) =>
       dispatch(chooseOption(category, toppingId)),
     resetOrder: () => dispatch(resetOrder()),
+    addToCart: () => dispatch(addToCart()),
   };
 };
 

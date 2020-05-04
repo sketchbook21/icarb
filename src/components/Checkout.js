@@ -1,21 +1,36 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Container } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
+import CheckoutItem from "./tiles/CheckoutItem";
 
-const Checkout = (props) => {
-  const displayPizzas = props.pizzaList.map((pizza) => {
+const Checkout = ({ cart, cartTotal, displayCartTotal }) => {
+  const displayCart = cart.map((pizza) => {
     return (
-      <div key={pizza.id}>
-        {pizza.id} {pizza.name}
-      </div>
+      <CheckoutItem key={pizza.cartId} pizzaOptions={pizza.pizzaOptions} />
     );
   });
-  return <Container>Hello from checkout!{displayPizzas}</Container>;
+  return (
+    <Container className="">
+      <Row className="my-5">
+        <Col className="fs-2 mb-3 fw-5 d-flex justify-content-center" md={12}>
+          Your order total is {displayCartTotal}
+        </Col>
+        <Col className="d-flex justify-content-center" md={12}>
+          Someone is hungry.
+        </Col>
+      </Row>
+      <Row>
+        <Col md={12}>{displayCart}</Col>
+      </Row>
+    </Container>
+  );
 };
 
 const mapStateToProps = (state) => {
   return {
-    pizzaList: state.pizzas.pizzaList,
+    cart: state.pizzas.cart,
+    cartTotal: state.pizzas.cartTotal,
+    displayCartTotal: state.pizzas.displayCartTotal,
   };
 };
 

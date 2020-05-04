@@ -3,11 +3,13 @@ import {
   crustType,
   pizzaStyle,
   extraToppings,
+  convertToDisplayValue,
 } from "../data/pizzaConstants";
 
 // Action type constants
 const CHOOSE_OPTION = "CHOOSE_OPTION";
 const RESET_ORDER = "RESET_ORDER";
+const ADD_TO_CART = "ADD_TO_CART";
 
 // Action creators
 
@@ -25,12 +27,21 @@ const resetOrder = () => {
   };
 };
 
+const addToCart = () => {
+  return {
+    type: ADD_TO_CART,
+  };
+};
+
 // initialState
 
 const initialState = {
   pizzaOptions: [...pizzaSize, ...crustType, ...pizzaStyle, ...extraToppings],
   mdSizeSelected: true,
   subtotalItems: [],
+  cart: [],
+  cartTotal: 0,
+  displayCartTotal: "",
 };
 
 // misc functions
@@ -111,6 +122,30 @@ const pizzas = (state = initialState, action) => {
         pizzaOptions: resetPizzaOptions,
         subtotalItems: resetSubtotalItems,
       };
+    case ADD_TO_CART:
+      const newCartId = state.cart.length + 1;
+      const newCartItem = {
+        cartId: newCartId,
+        mdSelected: state.mdSizeSelected,
+        pizzaOptions: state.subtotalItems,
+      };
+      const newCart = state.cart.concat(newCartItem);
+      let newCartTotal = 0;
+      newCart.forEach((cartItem) => {
+        cartItem.pizzaOptions.forEach((option) => {
+          if (cartItem.mdSelected) {
+            newCartTotal += option.value1;
+          } else {
+            newCartTotal += option.value2;
+          }
+        });
+      });
+      return {
+        ...state,
+        cart: newCart,
+        cartTotal: newCartTotal,
+        displayCartTotal: convertToDisplayValue(newCartTotal),
+      };
     default:
       return state;
   }
@@ -118,4 +153,4 @@ const pizzas = (state = initialState, action) => {
 
 // Export statement
 
-export { pizzas, chooseOption, resetOrder };
+export { pizzas, chooseOption, resetOrder, addToCart };
