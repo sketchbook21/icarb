@@ -1,16 +1,8 @@
 import React from "react";
-import {
-  Row,
-  Col,
-  Image,
-  Badge,
-  Button,
-  Accordion,
-  Card,
-} from "react-bootstrap";
+import { Row, Col, Image, Button } from "react-bootstrap";
 import { convertToDisplayValue } from "../../data/pizzaConstants";
 
-const CheckoutItem = ({ pizzaOptions }) => {
+const CheckoutItem = ({ mdSizeSelected, pizzaOptions }) => {
   let pizzaImageURL = "/icarb/images/";
   let size = "";
   let style = "";
@@ -23,7 +15,15 @@ const CheckoutItem = ({ pizzaOptions }) => {
     if (option.category === "Size") {
       size = option.name;
     }
-    itemTotal += option.value1;
+    if (mdSizeSelected) {
+      itemTotal += option.value1;
+    } else {
+      itemTotal += option.value2;
+    }
+
+    const displayValue = mdSizeSelected
+      ? option.displayValue1
+      : option.displayValue2;
     return (
       <div
         className="mb-1 w-100 d-flex justify-content-between"
@@ -32,24 +32,22 @@ const CheckoutItem = ({ pizzaOptions }) => {
         <div>
           {option.category}: <span className="fw-5">{option.name}</span>
         </div>
-        <div>{option.displayValue1}</div>
+        <div>{displayValue}</div>
       </div>
     );
   });
 
   return (
     <Row className="checkout-item">
-      <Col md={3}>
-        <div className="d-flex justify-content-center">
-          <Image className="checkout-item-image" src={pizzaImageURL} />
-        </div>
+      <Col md={4} className="px-0">
+        <Image className="checkout-item-image" src={pizzaImageURL} />
       </Col>
-      <Col md={9} className="pl-5">
+      <Col md={8}>
         <Row className="pb-3 line-below">
-          <Col className="fs-3 fw-7 px-0">
+          <Col md={10} className="fs-3 fw-7 px-0">
             {size} {style}
           </Col>
-          <Col className="fs-3 fw-7 text-right px-0">
+          <Col md={2} className="fs-3 fw-7 text-right px-0">
             <div className="">{convertToDisplayValue(itemTotal)}</div>
             <div className="">
               <Button variant="link" className="button-text-only">

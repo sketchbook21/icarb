@@ -39,77 +39,85 @@ const initialState = {
   pizzaOptions: [...pizzaSize, ...crustType, ...pizzaStyle, ...extraToppings],
   mdSizeSelected: true,
   subtotalItems: [],
-  cart: [
-    {
-      cartId: 1,
-      mdSelected: false,
-      pizzaOptions: [
-        {
-          id: 2,
-          category: "Size",
-          name: "Large (16-inch)",
-          img: null,
-          type: null,
-          value1: 100,
-          value2: 100,
-          displayValue1: "$100",
-          displayValue2: "$100",
-          active: false,
-        },
-        {
-          id: 3,
-          category: "Crust",
-          name: "Regular",
-          img: null,
-          type: null,
-          value1: 100,
-          value2: 100,
-          displayValue1: "$100",
-          displayValue2: "$100",
-          active: false,
-        },
-        {
-          id: 8,
-          category: "Style",
-          name: "Basil & Ricotta",
-          img: "ricotta-basil.jpeg",
-          type: "veg",
-          value1: 100,
-          value2: 100,
-          displayValue1: "$100",
-          displayValue2: "$100",
-          active: false,
-        },
-        {
-          id: 25,
-          category: "Extra Topping",
-          name: "Cranberry",
-          img: null,
-          type: null,
-          value1: 100,
-          value2: 100,
-          displayValue1: "$100",
-          displayValue2: "$100",
-          active: false,
-        },
-        {
-          id: 27,
-          category: "Extra Topping",
-          name: "Fresh Pineapple",
-          img: null,
-          type: null,
-          value1: 100,
-          value2: 100,
-          displayValue1: "$100",
-          displayValue2: "$100",
-          active: false,
-        },
-      ],
-    },
-  ],
-  cartTotal: 400,
-  displayCartTotal: "$400.00",
+  cart: [],
+  cartTotal: 0,
+  displayCartTotal: "",
 };
+// const initialState = {
+//   pizzaOptions: [...pizzaSize, ...crustType, ...pizzaStyle, ...extraToppings],
+//   mdSizeSelected: true,
+//   subtotalItems: [],
+//   cart: [
+//     {
+//       cartId: 1,
+//       mdSizeSelected: false,
+//       pizzaOptions: [
+//         {
+//           id: 2,
+//           category: "Size",
+//           name: "Large (16-inch)",
+//           img: null,
+//           type: null,
+//           value1: 100,
+//           value2: 100,
+//           displayValue1: "$100",
+//           displayValue2: "$100",
+//           active: false,
+//         },
+//         {
+//           id: 3,
+//           category: "Crust",
+//           name: "Regular",
+//           img: null,
+//           type: null,
+//           value1: 100,
+//           value2: 100,
+//           displayValue1: "$100",
+//           displayValue2: "$100",
+//           active: false,
+//         },
+//         {
+//           id: 8,
+//           category: "Style",
+//           name: "Basil & Ricotta",
+//           img: "ricotta-basil.jpeg",
+//           type: "veg",
+//           value1: 100,
+//           value2: 100,
+//           displayValue1: "$100",
+//           displayValue2: "$100",
+//           active: false,
+//         },
+//         {
+//           id: 25,
+//           category: "Extra Topping",
+//           name: "Cranberry",
+//           img: null,
+//           type: null,
+//           value1: 100,
+//           value2: 100,
+//           displayValue1: "$100",
+//           displayValue2: "$100",
+//           active: false,
+//         },
+//         {
+//           id: 27,
+//           category: "Extra Topping",
+//           name: "Fresh Pineapple",
+//           img: null,
+//           type: null,
+//           value1: 100,
+//           value2: 100,
+//           displayValue1: "$100",
+//           displayValue2: "$100",
+//           active: false,
+//         },
+//       ],
+//     },
+//   ],
+//   cartTotal: 400,
+//   displayCartTotal: "$400.00",
+// };
 
 // misc functions
 
@@ -193,14 +201,14 @@ const pizzas = (state = initialState, action) => {
       const newCartId = state.cart.length + 1;
       const newCartItem = {
         cartId: newCartId,
-        mdSelected: state.mdSizeSelected,
+        mdSizeSelected: state.mdSizeSelected,
         pizzaOptions: state.subtotalItems,
       };
       const newCart = state.cart.concat(newCartItem);
       let newCartTotal = 0;
       newCart.forEach((cartItem) => {
         cartItem.pizzaOptions.forEach((option) => {
-          if (cartItem.mdSelected) {
+          if (cartItem.mdSizeSelected) {
             newCartTotal += option.value1;
           } else {
             newCartTotal += option.value2;

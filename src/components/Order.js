@@ -59,7 +59,6 @@ const Order = ({
 
   const checkoutDisabled = subtotalItems.length > 2 ? false : true;
 
-  console.log(pizzaImageURL);
   return (
     <Container className="mt-5 mx-auto">
       <Row>

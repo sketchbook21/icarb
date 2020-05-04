@@ -6,7 +6,11 @@ import CheckoutItem from "./tiles/CheckoutItem";
 const Checkout = ({ cart, cartTotal, displayCartTotal }) => {
   const displayCart = cart.map((pizza) => {
     return (
-      <CheckoutItem key={pizza.cartId} pizzaOptions={pizza.pizzaOptions} />
+      <CheckoutItem
+        key={pizza.cartId}
+        mdSizeSelected={pizza.mdSizeSelected}
+        pizzaOptions={pizza.pizzaOptions}
+      />
     );
   });
   return (
@@ -19,8 +23,11 @@ const Checkout = ({ cart, cartTotal, displayCartTotal }) => {
           Someone is hungry.
         </Col>
       </Row>
-
       {displayCart}
+      <Row className="d-flex justify-content-between fs-3 fw-7 cart-total">
+        <div>Total</div>
+        <div>{displayCartTotal}</div>
+      </Row>
     </Container>
   );
 };
