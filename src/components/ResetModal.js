@@ -3,7 +3,7 @@ import { Modal, Button } from "react-bootstrap";
 
 const ResetModal = (props) => {
   const handleReset = () => {
-    props.resetOrder();
+    props.resetBuilder();
     props.onHide();
   };
   return (

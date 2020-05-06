@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { Container, Row, Col, Button, Image } from "react-bootstrap";
+import { Container, Row, Col, Button, Image, Alert } from "react-bootstrap";
 import { useHistory } from "react-router";
-import { chooseOption, resetOrder, addToCart } from "../modules/pizzas";
+import { chooseOption, resetBuilder, addToCart } from "../modules/pizzas";
 import SubtotalContainer from "./containers/SubtotalContainer";
 import OptionBlock from "./tiles/OptionBlock";
 import OptionCheckBlock from "./tiles/OptionCheckBlock";
@@ -16,10 +16,12 @@ const Order = ({
   chooseOption,
   subtotalItems,
   mdSizeSelected,
-  resetOrder,
+  resetBuilder,
   addToCart,
+  cart,
 }) => {
   const [modalShow, setModalShow] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
   const history = useHistory();
   const cheesePizzas = pizzaStyles.filter((pizza) => pizza.type === "cheese");
   const vegPizzas = pizzaStyles.filter((pizza) => pizza.type === "veg");
@@ -28,6 +30,13 @@ const Order = ({
   const handleContinue = () => {
     addToCart();
     history.push("/icarb/checkout");
+  };
+
+  const handleBuildAnother = () => {
+    addToCart();
+    resetBuilder();
+    setShowAlert(true);
+    setTimeout(() => setShowAlert(false), 3000);
   };
 
   let pizzaImageURL = "/icarb/images/cheese.jpeg";
@@ -61,6 +70,9 @@ const Order = ({
 
   return (
     <Container className="mt-5 mx-auto">
+      {showAlert && (
+        <Alert variant="success">Pizza was successfully added to cart.</Alert>
+      )}
       <Row>
         <Col md={6}>
           <Image className="preview-img mb-3" src={pizzaImageURL} />
@@ -77,15 +89,42 @@ const Order = ({
             >
               Continue
             </Button>
-            <Button
-              className="mb-3"
-              variant="outline-info"
-              block={true}
-              disabled={checkoutDisabled}
-              onClick={() => alert("add to cart")}
-            >
-              Add To Cart & Build Another
-            </Button>
+            {cart.length === 0 && (
+              <Button
+                className="mb-3"
+                variant="outline-info"
+                block={true}
+                disabled={checkoutDisabled}
+                onClick={handleBuildAnother}
+              >
+                Add To Cart
+              </Button>
+            )}
+            {cart.length > 0 && (
+              <Row>
+                <Col md={6} className="pr-2">
+                  <Button
+                    className="mb-3"
+                    variant="outline-info"
+                    block={true}
+                    disabled={checkoutDisabled}
+                    onClick={handleBuildAnother}
+                  >
+                    Add To Cart
+                  </Button>
+                </Col>
+                <Col md={6} className="pl-2">
+                  <Button
+                    className="mb-3"
+                    variant="outline-secondary"
+                    block={true}
+                    onClick={() => history.push("/icarb/checkout")}
+                  >
+                    Go To Checkout
+                  </Button>
+                </Col>
+              </Row>
+            )}
           </div>
           <Button
             variant="outline-danger"
@@ -154,7 +193,7 @@ const Order = ({
       <ResetModal
         show={modalShow}
         onHide={() => setModalShow(false)}
-        resetOrder={() => resetOrder()}
+        resetBuilder={() => resetBuilder()}
       />
     </Container>
   );
@@ -176,6 +215,7 @@ const mapStateToProps = (state) => {
     }),
     mdSizeSelected: state.pizzas.mdSizeSelected,
     subtotalItems: state.pizzas.subtotalItems,
+    cart: state.pizzas.cart,
   };
 };
 
@@ -183,7 +223,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     chooseOption: (category, toppingId) =>
       dispatch(chooseOption(category, toppingId)),
-    resetOrder: () => dispatch(resetOrder()),
+    resetBuilder: () => dispatch(resetBuilder()),
     addToCart: () => dispatch(addToCart()),
   };
 };

@@ -3,15 +3,15 @@ import { useHistory } from "react-router";
 import { connect } from "react-redux";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import CheckoutItem from "./tiles/CheckoutItem";
-import { resetOrder } from "../modules/pizzas";
+import { resetBuilder } from "../modules/pizzas";
 import DemoCompleteModal from "./DemoCompleteModal";
 
-const Checkout = ({ cart, displayCartTotal, resetOrder }) => {
+const Checkout = ({ cart, displayCartTotal, resetBuilder }) => {
   const history = useHistory();
   const [modalShow, setModalShow] = useState(false);
 
   const handleAddAnother = () => {
-    resetOrder();
+    resetBuilder();
     history.push("/icarb/pizza/new");
   };
 
@@ -72,7 +72,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    resetOrder: () => dispatch(resetOrder()),
+    resetBuilder: () => dispatch(resetBuilder()),
   };
 };
 
