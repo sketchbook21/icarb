@@ -1,15 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router";
 import { connect } from "react-redux";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import CheckoutItem from "./tiles/CheckoutItem";
 import { resetOrder } from "../modules/pizzas";
+import DemoCompleteModal from "./DemoCompleteModal";
 
 const Checkout = ({ cart, displayCartTotal, resetOrder }) => {
   const history = useHistory();
+  const [modalShow, setModalShow] = useState(false);
+
   const handleAddAnother = () => {
     resetOrder();
-    history.push("/icarb/pizza/2");
+    history.push("/icarb/pizza/new");
   };
   const displayCart = cart.map((pizza) => {
     return (
@@ -48,10 +51,12 @@ const Checkout = ({ cart, displayCartTotal, resetOrder }) => {
           variant="primary"
           className=" mt-3 mb-5"
           style={{ width: "20vw" }}
+          onClick={() => setModalShow(true)}
         >
           Order Now
         </Button>
       </Row>
+      <DemoCompleteModal show={modalShow} onHide={() => setModalShow(false)} />
     </Container>
   );
 };
