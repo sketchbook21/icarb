@@ -15,7 +15,8 @@ const App = (props) => {
         <Route component={Nav} path="/icarb" />
         <Switch>
           <Route component={Home} exact path="/icarb" />
-          <Route component={Order} exact path="/icarb/pizza/:id" />
+          <Route component={Order} exact path="/icarb/pizza/new" />
+          <Route component={Order} exact path="/icarb/pizza/:id/edit" />
           <Route component={Checkout} exact path="/icarb/checkout" />
           <Route component={NotFound} path="/icarb/" />
         </Switch>
