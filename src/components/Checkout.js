@@ -14,10 +14,12 @@ const Checkout = ({ cart, displayCartTotal, resetOrder }) => {
     resetOrder();
     history.push("/icarb/pizza/new");
   };
+
   const displayCart = cart.map((pizza) => {
     return (
       <CheckoutItem
         key={pizza.cartId}
+        id={pizza.cartId}
         mdSizeSelected={pizza.mdSizeSelected}
         pizzaOptions={pizza.pizzaOptions}
       />

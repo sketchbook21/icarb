@@ -10,6 +10,7 @@ import {
 const CHOOSE_OPTION = "CHOOSE_OPTION";
 const RESET_ORDER = "RESET_ORDER";
 const ADD_TO_CART = "ADD_TO_CART";
+const REMOVE_PIZZA = "REMOVE_PIZZA";
 
 // Action creators
 
@@ -33,6 +34,13 @@ const addToCart = () => {
   };
 };
 
+const removePizza = (id) => {
+  return {
+    type: REMOVE_PIZZA,
+    id,
+  };
+};
+
 // initialState
 
 const initialState = {
@@ -43,6 +51,7 @@ const initialState = {
   cartTotal: 0,
   displayCartTotal: "",
 };
+
 // const initialState = {
 //   pizzaOptions: [...pizzaSize, ...crustType, ...pizzaStyle, ...extraToppings],
 //   mdSizeSelected: true,
@@ -159,6 +168,20 @@ const changeSizeSelection = (id) => {
   return mdSizeSelected;
 };
 
+const sumCartTotal = (cart) => {
+  let newCartTotal = 0;
+  cart.forEach((cartItem) => {
+    cartItem.pizzaOptions.forEach((option) => {
+      if (cartItem.mdSizeSelected) {
+        newCartTotal += option.value1;
+      } else {
+        newCartTotal += option.value2;
+      }
+    });
+  });
+  return newCartTotal;
+};
+
 // reducer
 
 const pizzas = (state = initialState, action) => {
@@ -205,21 +228,23 @@ const pizzas = (state = initialState, action) => {
         pizzaOptions: state.subtotalItems,
       };
       const newCart = state.cart.concat(newCartItem);
-      let newCartTotal = 0;
-      newCart.forEach((cartItem) => {
-        cartItem.pizzaOptions.forEach((option) => {
-          if (cartItem.mdSizeSelected) {
-            newCartTotal += option.value1;
-          } else {
-            newCartTotal += option.value2;
-          }
-        });
-      });
+      const newCartTotal = sumCartTotal(newCart);
       return {
         ...state,
         cart: newCart,
         cartTotal: newCartTotal,
         displayCartTotal: convertToDisplayValue(newCartTotal),
+      };
+    case REMOVE_PIZZA:
+      const newCartRemovePizza = state.cart.filter(
+        (pizza) => pizza.cartId !== action.id
+      );
+      const newCartTotalRemovePizza = sumCartTotal(newCartRemovePizza);
+      return {
+        ...state,
+        cart: newCartRemovePizza,
+        cartTotal: newCartTotalRemovePizza,
+        displayCartTotal: convertToDisplayValue(newCartTotalRemovePizza),
       };
     default:
       return state;
@@ -228,4 +253,4 @@ const pizzas = (state = initialState, action) => {
 
 // Export statement
 
-export { pizzas, chooseOption, resetOrder, addToCart };
+export { pizzas, chooseOption, resetOrder, addToCart, removePizza };

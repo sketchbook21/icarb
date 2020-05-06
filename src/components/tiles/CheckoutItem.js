@@ -1,8 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
+import { connect } from "react-redux";
 import { Row, Col, Image, Button } from "react-bootstrap";
+import RemovePizzaModal from "../RemovePizzaModal";
+import { removePizza } from "../../modules/pizzas";
 import { convertToDisplayValue } from "../../data/pizzaConstants";
 
-const CheckoutItem = ({ mdSizeSelected, pizzaOptions }) => {
+const CheckoutItem = ({ id, mdSizeSelected, pizzaOptions, removePizza }) => {
+  const [modalShow, setModalShow] = useState(false);
+
   let pizzaImageURL = "/icarb/images/";
   let size = "";
   let style = "";
@@ -37,6 +42,8 @@ const CheckoutItem = ({ mdSizeSelected, pizzaOptions }) => {
     );
   });
 
+  const displayPizzaName = `${size} ${style}`;
+
   return (
     <Row className="checkout-item">
       <Col md={4} className="px-0">
@@ -45,12 +52,16 @@ const CheckoutItem = ({ mdSizeSelected, pizzaOptions }) => {
       <Col md={8}>
         <Row className="pb-3 line-below">
           <Col md={10} className="fs-3 fw-7 px-0">
-            {size} {style}
+            {displayPizzaName}
           </Col>
           <Col md={2} className="fs-3 fw-7 text-right px-0">
             <div className="">{convertToDisplayValue(itemTotal)}</div>
             <div className="">
-              <Button variant="link" className="button-text-only">
+              <Button
+                variant="link"
+                className="button-text-only"
+                onClick={() => setModalShow(true)}
+              >
                 Remove
               </Button>
             </div>
@@ -68,8 +79,21 @@ const CheckoutItem = ({ mdSizeSelected, pizzaOptions }) => {
           <Col className="fs-5 ml-2 px-0">{optionItems}</Col>
         </Row>
       </Col>
+      <RemovePizzaModal
+        id={id}
+        removePizza={removePizza}
+        displayPizzaName={displayPizzaName}
+        show={modalShow}
+        onHide={() => setModalShow(false)}
+      />
     </Row>
   );
 };
 
-export default CheckoutItem;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    removePizza: (id) => dispatch(removePizza(id)),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(CheckoutItem);
