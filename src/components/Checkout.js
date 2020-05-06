@@ -25,14 +25,33 @@ const Checkout = ({ cart, displayCartTotal, resetBuilder }) => {
       />
     );
   });
+
+  if (cart.length === 0) {
+    return (
+      <Container
+        className="my-5 fs-2 mb-3 fw-7 d-flex justify-content-center align-items-center"
+        style={{ height: "60vh" }}
+      >
+        <div className="mb-5 pt-5">
+          Sorry, there are no pizzas in checkout{" "}
+          <span role="img" aria-label="sad-face">
+            😭
+          </span>
+        </div>
+      </Container>
+    );
+  }
   return (
-    <Container className="">
-      <Row className="my-5">
-        <Col className="fs-2 mb-3 fw-7 d-flex justify-content-center" md={12}>
+    <Container>
+      <Row className="my-5 text-center">
+        <Col className="fs-2 mb-3 fw-7 " md={12}>
           Your order total is {displayCartTotal}
         </Col>
-        <Col className="d-flex justify-content-center" md={12}>
-          Your friends are gonna be so jelly.
+        <Col md={12}>
+          Your friends are gonna be so jelly{"  "}
+          <span role="img" aria-label="heart-face">
+            😍
+          </span>
         </Col>
       </Row>
       {displayCart}

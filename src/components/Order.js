@@ -135,7 +135,12 @@ const Order = ({
           </Button>
         </Col>
         <Col md={6} className="order-options-column">
-          <div className="fs-2 fw-5">Start Order</div>
+          <div className="fs-2 fw-5">
+            Start Order{" "}
+            <span role="img" aria-label="check">
+              ✅
+            </span>
+          </div>
           <div className="mb-5">
             Select from our list of gourmet pies or build your own.
           </div>
