@@ -1,23 +1,23 @@
 {
   "files": {
     "main.css": "/icarb/static/css/main.6539427d.chunk.css",
-    "main.js": "/icarb/static/js/main.5e93de66.chunk.js",
-    "main.js.map": "/icarb/static/js/main.5e93de66.chunk.js.map",
+    "main.js": "/icarb/static/js/main.0e85ac6a.chunk.js",
+    "main.js.map": "/icarb/static/js/main.0e85ac6a.chunk.js.map",
     "runtime-main.js": "/icarb/static/js/runtime-main.0ca1cb35.js",
     "runtime-main.js.map": "/icarb/static/js/runtime-main.0ca1cb35.js.map",
-    "static/js/2.9eeaab58.chunk.js": "/icarb/static/js/2.9eeaab58.chunk.js",
-    "static/js/2.9eeaab58.chunk.js.map": "/icarb/static/js/2.9eeaab58.chunk.js.map",
+    "static/js/2.ef7d4e06.chunk.js": "/icarb/static/js/2.ef7d4e06.chunk.js",
+    "static/js/2.ef7d4e06.chunk.js.map": "/icarb/static/js/2.ef7d4e06.chunk.js.map",
     "index.html": "/icarb/index.html",
-    "precache-manifest.87444ff3ac6158ec24e3d0dad5543d08.js": "/icarb/precache-manifest.87444ff3ac6158ec24e3d0dad5543d08.js",
+    "precache-manifest.5fcb993fa1860cbadca04f2bcdf9299c.js": "/icarb/precache-manifest.5fcb993fa1860cbadca04f2bcdf9299c.js",
     "service-worker.js": "/icarb/service-worker.js",
     "static/css/main.6539427d.chunk.css.map": "/icarb/static/css/main.6539427d.chunk.css.map",
-    "static/js/2.9eeaab58.chunk.js.LICENSE.txt": "/icarb/static/js/2.9eeaab58.chunk.js.LICENSE.txt",
+    "static/js/2.ef7d4e06.chunk.js.LICENSE.txt": "/icarb/static/js/2.ef7d4e06.chunk.js.LICENSE.txt",
     "static/media/App.scss": "/icarb/static/media/hero-final.8dd080d9.jpg"
   },
   "entrypoints": [
     "static/js/runtime-main.0ca1cb35.js",
-    "static/js/2.9eeaab58.chunk.js",
+    "static/js/2.ef7d4e06.chunk.js",
     "static/css/main.6539427d.chunk.css",
-    "static/js/main.5e93de66.chunk.js"
+    "static/js/main.0e85ac6a.chunk.js"
   ]
 }
