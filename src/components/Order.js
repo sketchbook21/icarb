@@ -161,7 +161,6 @@ const Order = ({
 };
 
 const mapStateToProps = (state) => {
-  console.log("cart", state.pizzas.cart);
   return {
     pizzaSizes: state.pizzas.pizzaOptions.filter((option) => {
       return option.category === "Size";
