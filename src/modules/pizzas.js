@@ -3,10 +3,13 @@ import {
   crustType,
   pizzaStyle,
   extraToppings,
+  convertToDisplayValue,
 } from "../data/pizzaConstants";
 
 // Action type constants
 const CHOOSE_OPTION = "CHOOSE_OPTION";
+const RESET_ORDER = "RESET_ORDER";
+const ADD_TO_CART = "ADD_TO_CART";
 
 // Action creators
 
@@ -18,13 +21,103 @@ const chooseOption = (category, id) => {
   };
 };
 
+const resetOrder = () => {
+  return {
+    type: RESET_ORDER,
+  };
+};
+
+const addToCart = () => {
+  return {
+    type: ADD_TO_CART,
+  };
+};
+
 // initialState
 
 const initialState = {
   pizzaOptions: [...pizzaSize, ...crustType, ...pizzaStyle, ...extraToppings],
   mdSizeSelected: true,
   subtotalItems: [],
+  cart: [],
+  cartTotal: 0,
+  displayCartTotal: "",
 };
+// const initialState = {
+//   pizzaOptions: [...pizzaSize, ...crustType, ...pizzaStyle, ...extraToppings],
+//   mdSizeSelected: true,
+//   subtotalItems: [],
+//   cart: [
+//     {
+//       cartId: 1,
+//       mdSizeSelected: false,
+//       pizzaOptions: [
+//         {
+//           id: 2,
+//           category: "Size",
+//           name: "Large (16-inch)",
+//           img: null,
+//           type: null,
+//           value1: 100,
+//           value2: 100,
+//           displayValue1: "$100",
+//           displayValue2: "$100",
+//           active: false,
+//         },
+//         {
+//           id: 3,
+//           category: "Crust",
+//           name: "Regular",
+//           img: null,
+//           type: null,
+//           value1: 100,
+//           value2: 100,
+//           displayValue1: "$100",
+//           displayValue2: "$100",
+//           active: false,
+//         },
+//         {
+//           id: 8,
+//           category: "Style",
+//           name: "Basil & Ricotta",
+//           img: "ricotta-basil.jpeg",
+//           type: "veg",
+//           value1: 100,
+//           value2: 100,
+//           displayValue1: "$100",
+//           displayValue2: "$100",
+//           active: false,
+//         },
+//         {
+//           id: 25,
+//           category: "Extra Topping",
+//           name: "Cranberry",
+//           img: null,
+//           type: null,
+//           value1: 100,
+//           value2: 100,
+//           displayValue1: "$100",
+//           displayValue2: "$100",
+//           active: false,
+//         },
+//         {
+//           id: 27,
+//           category: "Extra Topping",
+//           name: "Fresh Pineapple",
+//           img: null,
+//           type: null,
+//           value1: 100,
+//           value2: 100,
+//           displayValue1: "$100",
+//           displayValue2: "$100",
+//           active: false,
+//         },
+//       ],
+//     },
+//   ],
+//   cartTotal: 400,
+//   displayCartTotal: "$400.00",
+// };
 
 // misc functions
 
@@ -93,7 +186,41 @@ const pizzas = (state = initialState, action) => {
         pizzaOptions: newPizzaOptionsState,
         subtotalItems: newSubtotalItems,
       };
-
+    case RESET_ORDER:
+      const resetPizzaOptions = state.pizzaOptions.concat();
+      resetPizzaOptions.forEach((option) => {
+        option.active = false;
+      });
+      const resetSubtotalItems = [];
+      return {
+        ...state,
+        pizzaOptions: resetPizzaOptions,
+        subtotalItems: resetSubtotalItems,
+      };
+    case ADD_TO_CART:
+      const newCartId = state.cart.length + 1;
+      const newCartItem = {
+        cartId: newCartId,
+        mdSizeSelected: state.mdSizeSelected,
+        pizzaOptions: state.subtotalItems,
+      };
+      const newCart = state.cart.concat(newCartItem);
+      let newCartTotal = 0;
+      newCart.forEach((cartItem) => {
+        cartItem.pizzaOptions.forEach((option) => {
+          if (cartItem.mdSizeSelected) {
+            newCartTotal += option.value1;
+          } else {
+            newCartTotal += option.value2;
+          }
+        });
+      });
+      return {
+        ...state,
+        cart: newCart,
+        cartTotal: newCartTotal,
+        displayCartTotal: convertToDisplayValue(newCartTotal),
+      };
     default:
       return state;
   }
@@ -101,4 +228,4 @@ const pizzas = (state = initialState, action) => {
 
 // Export statement
 
-export { pizzas, chooseOption };
+export { pizzas, chooseOption, resetOrder, addToCart };
