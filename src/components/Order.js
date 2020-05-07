@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Container, Row, Col, Button, Image, Alert } from "react-bootstrap";
-import { useHistory } from "react-router";
+import { useHistory, useParams } from "react-router";
 import { chooseOption, resetBuilder, addToCart } from "../modules/pizzas";
 import SubtotalContainer from "./containers/SubtotalContainer";
 import OptionBlock from "./tiles/OptionBlock";
@@ -23,17 +23,19 @@ const Order = ({
   const [modalShow, setModalShow] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
   const history = useHistory();
+  const { id: urlId } = useParams();
   const cheesePizzas = pizzaStyles.filter((pizza) => pizza.type === "cheese");
   const vegPizzas = pizzaStyles.filter((pizza) => pizza.type === "veg");
   const meatPizzas = pizzaStyles.filter((pizza) => pizza.type === "meat");
 
   const handleContinue = () => {
-    addToCart();
+    addToCart(parseInt(urlId));
+    resetBuilder();
     history.push("/icarb/checkout");
   };
 
   const handleBuildAnother = () => {
-    addToCart();
+    addToCart(parseInt(urlId));
     resetBuilder();
     setShowAlert(true);
     setTimeout(() => setShowAlert(false), 3000);
@@ -229,7 +231,7 @@ const mapDispatchToProps = (dispatch) => {
     chooseOption: (category, toppingId) =>
       dispatch(chooseOption(category, toppingId)),
     resetBuilder: () => dispatch(resetBuilder()),
-    addToCart: () => dispatch(addToCart()),
+    addToCart: (id) => dispatch(addToCart(id)),
   };
 };
 
