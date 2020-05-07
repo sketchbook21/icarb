@@ -3,15 +3,26 @@ import { useHistory } from "react-router";
 import { connect } from "react-redux";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import CheckoutItem from "./tiles/CheckoutItem";
-import { resetBuilder } from "../modules/pizzas";
+import { resetBuilder, setShowLoader } from "../modules/pizzas";
 import DemoCompleteModal from "./DemoCompleteModal";
+import PageLoader from "./PageLoader";
+import { delay } from "../helpers/helperFunctions";
 
-const Checkout = ({ cart, displayCartTotal, resetBuilder }) => {
+const Checkout = ({
+  cart,
+  displayCartTotal,
+  resetBuilder,
+  showLoader,
+  setShowLoader,
+}) => {
   const history = useHistory();
   const [modalShow, setModalShow] = useState(false);
 
-  const handleAddAnother = () => {
+  const handleAddAnother = async () => {
+    setShowLoader(true);
     resetBuilder();
+    await delay(500);
+    setShowLoader(false);
     history.push("/icarb/pizza/new");
   };
 
@@ -22,9 +33,14 @@ const Checkout = ({ cart, displayCartTotal, resetBuilder }) => {
         id={pizza.cartId}
         mdSizeSelected={pizza.mdSizeSelected}
         pizzaOptions={pizza.pizzaOptions}
+        setShowLoader={setShowLoader}
       />
     );
   });
+
+  if (showLoader) {
+    return <PageLoader />;
+  }
 
   if (cart.length === 0) {
     return (
@@ -86,12 +102,14 @@ const mapStateToProps = (state) => {
   return {
     cart: state.pizzas.cart,
     displayCartTotal: state.pizzas.displayCartTotal,
+    showLoader: state.pizzas.showLoader,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     resetBuilder: () => dispatch(resetBuilder()),
+    setShowLoader: (boolean) => dispatch(setShowLoader(boolean)),
   };
 };
 

@@ -1,12 +1,23 @@
 import React from "react";
+import { connect } from "react-redux";
 import { Container, Button } from "react-bootstrap";
 import { useHistory } from "react-router";
+import { delay } from "../helpers/helperFunctions";
+import { setShowLoader } from "../modules/pizzas";
+import PageLoader from "./PageLoader";
 
-const Home = () => {
+const Home = ({ showLoader, setShowLoader }) => {
   const history = useHistory();
-  const handleToOrder = () => {
+  const handleToOrder = async () => {
+    setShowLoader(true);
+    await delay(500);
     history.push("/icarb/pizza/new");
+    setShowLoader(false);
   };
+
+  if (showLoader) {
+    return <PageLoader />;
+  }
 
   return (
     <div className="hero">
@@ -27,4 +38,16 @@ const Home = () => {
   );
 };
 
-export default Home;
+const mapStateToProps = (state) => {
+  return {
+    showLoader: state.pizzas.showLoader,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setShowLoader: (boolean) => dispatch(setShowLoader(boolean)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

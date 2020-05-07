@@ -12,6 +12,7 @@ const RESET_BUILDER = "RESET_BUILDER";
 const ADD_TO_CART = "ADD_TO_CART";
 const REMOVE_PIZZA = "REMOVE_PIZZA";
 const EDIT_PIZZA = "EDIT_PIZZA";
+const SET_SHOW_LOADER = "SET_SHOW_LOADER";
 
 // Action creators
 
@@ -50,92 +51,100 @@ const editPizza = (id) => {
   };
 };
 
-// initialState;
-
-const initialState = {
-  pizzaOptions: [...pizzaSize, ...crustType, ...pizzaStyle, ...extraToppings],
-  mdSizeSelected: true,
-  subtotalItems: [],
-  cart: [],
-  cartTotal: 0,
-  displayCartTotal: "",
+const setShowLoader = (boolean) => {
+  return {
+    type: SET_SHOW_LOADER,
+    show: boolean,
+  };
 };
+
+// initialState;
 
 // const initialState = {
 //   pizzaOptions: [...pizzaSize, ...crustType, ...pizzaStyle, ...extraToppings],
 //   mdSizeSelected: true,
 //   subtotalItems: [],
-//   cart: [
-//     {
-//       cartId: 1,
-//       mdSizeSelected: false,
-//       pizzaOptions: [
-//         {
-//           id: 2,
-//           category: "Size",
-//           name: "Large (16-inch)",
-//           img: null,
-//           type: null,
-//           value1: 100,
-//           value2: 100,
-//           displayValue1: "$100",
-//           displayValue2: "$100",
-//           active: false,
-//         },
-//         {
-//           id: 3,
-//           category: "Crust",
-//           name: "Regular",
-//           img: null,
-//           type: null,
-//           value1: 100,
-//           value2: 100,
-//           displayValue1: "$100",
-//           displayValue2: "$100",
-//           active: false,
-//         },
-//         {
-//           id: 8,
-//           category: "Style",
-//           name: "Basil & Ricotta",
-//           img: "ricotta-basil.jpeg",
-//           type: "veg",
-//           value1: 100,
-//           value2: 100,
-//           displayValue1: "$100",
-//           displayValue2: "$100",
-//           active: false,
-//         },
-//         {
-//           id: 25,
-//           category: "Extra Topping",
-//           name: "Cranberry",
-//           img: null,
-//           type: null,
-//           value1: 100,
-//           value2: 100,
-//           displayValue1: "$100",
-//           displayValue2: "$100",
-//           active: false,
-//         },
-//         {
-//           id: 27,
-//           category: "Extra Topping",
-//           name: "Fresh Pineapple",
-//           img: null,
-//           type: null,
-//           value1: 100,
-//           value2: 100,
-//           displayValue1: "$100",
-//           displayValue2: "$100",
-//           active: false,
-//         },
-//       ],
-//     },
-//   ],
-//   cartTotal: 400,
-//   displayCartTotal: "$400.00",
+//   cart: [],
+//   cartTotal: 0,
+//   displayCartTotal: "",
+//   showLoader: false,
 // };
+
+const initialState = {
+  pizzaOptions: [...pizzaSize, ...crustType, ...pizzaStyle, ...extraToppings],
+  mdSizeSelected: true,
+  subtotalItems: [],
+  cart: [
+    {
+      cartId: 1,
+      mdSizeSelected: false,
+      pizzaOptions: [
+        {
+          id: 2,
+          category: "Size",
+          name: "Large (16-inch)",
+          img: null,
+          type: null,
+          value1: 100,
+          value2: 100,
+          displayValue1: "$100",
+          displayValue2: "$100",
+          active: false,
+        },
+        {
+          id: 3,
+          category: "Crust",
+          name: "Regular",
+          img: null,
+          type: null,
+          value1: 100,
+          value2: 100,
+          displayValue1: "$100",
+          displayValue2: "$100",
+          active: false,
+        },
+        {
+          id: 8,
+          category: "Style",
+          name: "Basil & Ricotta",
+          img: "ricotta-basil.jpeg",
+          type: "veg",
+          value1: 100,
+          value2: 100,
+          displayValue1: "$100",
+          displayValue2: "$100",
+          active: false,
+        },
+        {
+          id: 25,
+          category: "Extra Topping",
+          name: "Cranberry",
+          img: null,
+          type: null,
+          value1: 100,
+          value2: 100,
+          displayValue1: "$100",
+          displayValue2: "$100",
+          active: false,
+        },
+        {
+          id: 27,
+          category: "Extra Topping",
+          name: "Fresh Pineapple",
+          img: null,
+          type: null,
+          value1: 100,
+          value2: 100,
+          displayValue1: "$100",
+          displayValue2: "$100",
+          active: false,
+        },
+      ],
+    },
+  ],
+  cartTotal: 400,
+  displayCartTotal: "$400.00",
+};
 
 // misc functions
 
@@ -266,7 +275,6 @@ const pizzas = (state = initialState, action) => {
         (pizza) => pizza.cartId === action.id
       )[0];
       const editSubtotalItems = pizzaToEdit.pizzaOptions;
-      console.log(editSubtotalItems);
       const editPizzaOptions = state.pizzaOptions.concat();
       editPizzaOptions.forEach((option) => {
         if (editSubtotalItems.includes(option)) {
@@ -282,6 +290,9 @@ const pizzas = (state = initialState, action) => {
         pizzaOptions: editPizzaOptions,
         mdSizeSelected: editMdSizeSelected,
       };
+    case SET_SHOW_LOADER:
+      const newShowLoader = action.show;
+      return { ...state, showLoader: newShowLoader };
     default:
       return state;
   }
@@ -296,4 +307,5 @@ export {
   addToCart,
   removePizza,
   editPizza,
+  setShowLoader,
 };
