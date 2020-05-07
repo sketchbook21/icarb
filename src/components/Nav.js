@@ -1,22 +1,32 @@
 import React from "react";
+import { connect } from "react-redux";
 import { useHistory } from "react-router";
-import { Navbar, Container, Image } from "react-bootstrap";
+import { Navbar, Container, Image, Badge } from "react-bootstrap";
+import ShoppingBag from "./icons/ShoppingBag";
 
-const Nav = () => {
+const Nav = ({ cart }) => {
   const history = useHistory();
 
   const handleHomeUrl = () => {
     history.push("/icarb");
   };
 
+  const handleCheckoutUrl = () => {
+    history.push("/icarb/checkout");
+  };
+
+  const cartLength = cart.length > 0 ? cart.length : null;
+
   return (
-    <Navbar expand="sm" bg="dark" variant="dark">
+    <Navbar
+      expand="sm"
+      bg="dark"
+      variant="dark"
+      className="d-flex align-items-center"
+    >
       <Container>
-        <Navbar.Brand
-          onClick={handleHomeUrl}
-          className="w-100 d-flex justify-content-between align-items-center"
-        >
-          <span>
+        <Navbar.Brand className="w-100 d-flex justify-content-between mx-0">
+          <span onClick={handleHomeUrl}>
             <Image
               className="pr-2 pb-1"
               src="/icarb/pizza.svg"
@@ -24,20 +34,22 @@ const Nav = () => {
             />{" "}
             iCarb
           </span>
-          <svg
-            className="bi bi-bag-fill"
-            width="1em"
-            height="1em"
-            viewBox="0 0 16 16"
-            fill="currentColor"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path d="M1 4h14v10a2 2 0 01-2 2H3a2 2 0 01-2-2V4zm7-2.5A2.5 2.5 0 005.5 4h-1a3.5 3.5 0 117 0h-1A2.5 2.5 0 008 1.5z" />
-          </svg>
+          <span onClick={handleCheckoutUrl}>
+            <Badge pill variant="primary" className="mr-2 fs-5">
+              {cartLength}
+            </Badge>
+            <ShoppingBag />
+          </span>
         </Navbar.Brand>
       </Container>
     </Navbar>
   );
 };
 
-export default Nav;
+const mapStateToProps = (state) => {
+  return {
+    cart: state.pizzas.cart,
+  };
+};
+
+export default connect(mapStateToProps, null)(Nav);
