@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "15129104eb8f89f7d034a49fddf04cdf",
+    "revision": "0568ca9ade716b19725b82e2b8fc2d8e",
     "url": "/icarb/index.html"
   },
   {
-    "revision": "36686b4982a18e0a4a99",
+    "revision": "cb7fcd95d70fe5b5cba5",
     "url": "/icarb/static/css/main.6539427d.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/icarb/static/js/2.9eaa9bad.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "36686b4982a18e0a4a99",
-    "url": "/icarb/static/js/main.1e7eaeb0.chunk.js"
+    "revision": "cb7fcd95d70fe5b5cba5",
+    "url": "/icarb/static/js/main.f8c8897a.chunk.js"
   },
   {
     "revision": "71191e1ee85a50b2d30b",
