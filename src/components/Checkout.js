@@ -18,12 +18,12 @@ const Checkout = ({
   const history = useHistory();
   const [modalShow, setModalShow] = useState(false);
 
-  const handleAddAnother = async () => {
+  const handleToOrder = async () => {
     setShowLoader(true);
     resetBuilder();
     await delay(500);
-    setShowLoader(false);
     history.push("/icarb/pizza/new");
+    setShowLoader(false);
   };
 
   const displayCart = cart.map((pizza) => {
@@ -44,16 +44,24 @@ const Checkout = ({
 
   if (cart.length === 0) {
     return (
-      <Container
-        className="my-5 fs-2 mb-3 fw-7 d-flex justify-content-center align-items-center"
-        style={{ height: "60vh" }}
-      >
-        <div className="mb-5 pt-5">
-          Sorry, there are no pizzas in checkout{" "}
-          <span role="img" aria-label="sad-face">
-            😭
-          </span>
-        </div>
+      <Container>
+        <Row style={{ marginTop: "200px" }}>
+          <Col md={12} className="text-center">
+            <div className="fs-2 fw-7 mb-5 pt-5">
+              Sorry, there are no pizzas in checkout{" "}
+              <span role="img" aria-label="sad-face">
+                😭
+              </span>
+            </div>
+          </Col>
+        </Row>
+        <Row>
+          <Col md={12} className="text-center">
+            <Button variant="primary" onClick={handleToOrder}>
+              Start A New Order
+            </Button>
+          </Col>
+        </Row>
       </Container>
     );
   }
@@ -80,7 +88,7 @@ const Checkout = ({
           variant="outline-secondary"
           className=" mt-3 mb-5"
           style={{ width: "20vw" }}
-          onClick={handleAddAnother}
+          onClick={handleToOrder}
         >
           Add Another Pizza
         </Button>
