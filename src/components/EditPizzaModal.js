@@ -1,13 +1,26 @@
 import React from "react";
+import { connect } from "react-redux";
 import { Modal, Button } from "react-bootstrap";
 import { useHistory } from "react-router";
+import { setShowLoader } from "../modules/pizzas";
+import { delay } from "../helpers/helperFunctions";
 
-const EditPizzaModal = ({ id, editPizza, displayPizzaName, show, onHide }) => {
+const EditPizzaModal = ({
+  id,
+  editPizza,
+  displayPizzaName,
+  show,
+  onHide,
+  setShowLoader,
+}) => {
   const history = useHistory();
-  const handleEdit = (cartId) => {
+  const handleEdit = async (cartId) => {
+    setShowLoader(true);
     editPizza(cartId);
-    history.push(`/icarb/pizza/${cartId}/edit`);
     onHide();
+    await delay(1000);
+    setShowLoader(false);
+    history.push(`/icarb/pizza/${cartId}/edit`);
   };
   return (
     <Modal
@@ -37,4 +50,10 @@ const EditPizzaModal = ({ id, editPizza, displayPizzaName, show, onHide }) => {
   );
 };
 
-export default EditPizzaModal;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setShowLoader: (boolean) => dispatch(setShowLoader(boolean)),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(EditPizzaModal);

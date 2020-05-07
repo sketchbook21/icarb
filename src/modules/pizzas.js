@@ -12,6 +12,7 @@ const RESET_BUILDER = "RESET_BUILDER";
 const ADD_TO_CART = "ADD_TO_CART";
 const REMOVE_PIZZA = "REMOVE_PIZZA";
 const EDIT_PIZZA = "EDIT_PIZZA";
+const SET_SHOW_LOADER = "SET_SHOW_LOADER";
 
 // Action creators
 
@@ -50,6 +51,13 @@ const editPizza = (id) => {
   };
 };
 
+const setShowLoader = (boolean) => {
+  return {
+    type: SET_SHOW_LOADER,
+    show: boolean,
+  };
+};
+
 // initialState;
 
 const initialState = {
@@ -59,6 +67,7 @@ const initialState = {
   cart: [],
   cartTotal: 0,
   displayCartTotal: "",
+  showLoader: false,
 };
 
 // const initialState = {
@@ -266,7 +275,6 @@ const pizzas = (state = initialState, action) => {
         (pizza) => pizza.cartId === action.id
       )[0];
       const editSubtotalItems = pizzaToEdit.pizzaOptions;
-      console.log(editSubtotalItems);
       const editPizzaOptions = state.pizzaOptions.concat();
       editPizzaOptions.forEach((option) => {
         if (editSubtotalItems.includes(option)) {
@@ -282,6 +290,9 @@ const pizzas = (state = initialState, action) => {
         pizzaOptions: editPizzaOptions,
         mdSizeSelected: editMdSizeSelected,
       };
+    case SET_SHOW_LOADER:
+      const newShowLoader = action.show;
+      return { ...state, showLoader: newShowLoader };
     default:
       return state;
   }
@@ -296,4 +307,5 @@ export {
   addToCart,
   removePizza,
   editPizza,
+  setShowLoader,
 };

@@ -1,5 +1,8 @@
 import React from "react";
+import { connect } from "react-redux";
 import { Modal, Button } from "react-bootstrap";
+import { setShowLoader } from "../modules/pizzas";
+import { delay } from "../helpers/helperFunctions";
 
 const RemovePizzaModal = ({
   id,
@@ -7,10 +10,14 @@ const RemovePizzaModal = ({
   displayPizzaName,
   show,
   onHide,
+  setShowLoader,
 }) => {
-  const handleRemove = () => {
+  const handleRemove = async () => {
+    setShowLoader(true);
     removePizza(id);
     onHide();
+    await delay(250);
+    setShowLoader(false);
   };
   return (
     <Modal
@@ -46,4 +53,10 @@ const RemovePizzaModal = ({
   );
 };
 
-export default RemovePizzaModal;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setShowLoader: (boolean) => dispatch(setShowLoader(boolean)),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(RemovePizzaModal);

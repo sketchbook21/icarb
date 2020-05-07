@@ -2,11 +2,18 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Container, Row, Col, Button, Image, Alert } from "react-bootstrap";
 import { useHistory, useParams } from "react-router";
-import { chooseOption, resetBuilder, addToCart } from "../modules/pizzas";
+import {
+  chooseOption,
+  resetBuilder,
+  addToCart,
+  setShowLoader,
+} from "../modules/pizzas";
+import { delay } from "../helpers/helperFunctions";
 import SubtotalContainer from "./containers/SubtotalContainer";
 import OptionBlock from "./tiles/OptionBlock";
 import OptionCheckBlock from "./tiles/OptionCheckBlock";
 import ResetModal from "./ResetModal";
+import PageLoader from "./PageLoader";
 
 const Order = ({
   pizzaSizes,
@@ -19,6 +26,8 @@ const Order = ({
   resetBuilder,
   addToCart,
   cart,
+  showLoader,
+  setShowLoader,
 }) => {
   const [modalShow, setModalShow] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
@@ -28,18 +37,37 @@ const Order = ({
   const vegPizzas = pizzaStyles.filter((pizza) => pizza.type === "veg");
   const meatPizzas = pizzaStyles.filter((pizza) => pizza.type === "meat");
 
-  const handleContinue = () => {
+  const handleContinue = async () => {
+    setShowLoader(true);
     addToCart(parseInt(urlId));
     resetBuilder();
+    await delay(1000);
+    setShowLoader(false);
     history.push("/icarb/checkout");
   };
 
-  const handleBuildAnother = () => {
+  const handleBuildAnother = async () => {
+    setShowLoader(true);
     addToCart(parseInt(urlId));
     resetBuilder();
+    await delay(500);
+    setShowLoader(false);
     history.push("/icarb/pizza/new");
     setShowAlert(true);
-    setTimeout(() => setShowAlert(false), 3000);
+  };
+
+  const handleReset = async () => {
+    setShowLoader(true);
+    resetBuilder();
+    await delay(500);
+    setShowLoader(false);
+  };
+
+  const handleGoToCheckout = async () => {
+    setShowLoader(true);
+    await delay(250);
+    setShowLoader(false);
+    history.push("/icarb/checkout");
   };
 
   let pizzaImageURL = "/icarb/images/cheese.jpeg";
@@ -71,10 +99,20 @@ const Order = ({
 
   const checkoutDisabled = subtotalItems.length > 2 ? false : true;
 
+  if (showLoader) {
+    return <PageLoader />;
+  }
+
   return (
     <Container className="mt-5 mx-auto">
       {showAlert && (
-        <Alert variant="success">Pizza was successfully added to cart.</Alert>
+        <Alert
+          variant="success"
+          onClose={() => setShowAlert(false)}
+          dismissible
+        >
+          Pizza was successfully added to cart.
+        </Alert>
       )}
       <Row>
         <Col md={6}>
@@ -121,7 +159,7 @@ const Order = ({
                     className="mb-3"
                     variant="outline-secondary"
                     block={true}
-                    onClick={() => history.push("/icarb/checkout")}
+                    onClick={handleGoToCheckout}
                   >
                     Go To Checkout
                   </Button>
@@ -201,7 +239,7 @@ const Order = ({
       <ResetModal
         show={modalShow}
         onHide={() => setModalShow(false)}
-        resetBuilder={() => resetBuilder()}
+        handleReset={handleReset}
       />
     </Container>
   );
@@ -224,6 +262,7 @@ const mapStateToProps = (state) => {
     mdSizeSelected: state.pizzas.mdSizeSelected,
     subtotalItems: state.pizzas.subtotalItems,
     cart: state.pizzas.cart,
+    showLoader: state.pizzas.showLoader,
   };
 };
 
@@ -233,6 +272,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(chooseOption(category, toppingId)),
     resetBuilder: () => dispatch(resetBuilder()),
     addToCart: (id) => dispatch(addToCart(id)),
+    setShowLoader: (boolean) => dispatch(setShowLoader(boolean)),
   };
 };
 
