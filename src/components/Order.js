@@ -37,6 +37,7 @@ const Order = ({
   const handleBuildAnother = () => {
     addToCart(parseInt(urlId));
     resetBuilder();
+    history.push("/icarb/pizza/new");
     setShowAlert(true);
     setTimeout(() => setShowAlert(false), 3000);
   };
