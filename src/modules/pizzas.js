@@ -11,6 +11,7 @@ const CHOOSE_OPTION = "CHOOSE_OPTION";
 const RESET_BUILDER = "RESET_BUILDER";
 const ADD_TO_CART = "ADD_TO_CART";
 const REMOVE_PIZZA = "REMOVE_PIZZA";
+const EDIT_PIZZA = "EDIT_PIZZA";
 
 // Action creators
 
@@ -28,9 +29,10 @@ const resetBuilder = () => {
   };
 };
 
-const addToCart = () => {
+const addToCart = (id) => {
   return {
     type: ADD_TO_CART,
+    id: id,
   };
 };
 
@@ -41,7 +43,14 @@ const removePizza = (id) => {
   };
 };
 
-// initialState
+const editPizza = (id) => {
+  return {
+    type: EDIT_PIZZA,
+    id,
+  };
+};
+
+// initialState;
 
 const initialState = {
   pizzaOptions: [...pizzaSize, ...crustType, ...pizzaStyle, ...extraToppings],
@@ -221,17 +230,23 @@ const pizzas = (state = initialState, action) => {
         subtotalItems: resetSubtotalItems,
       };
     case ADD_TO_CART:
-      const newCartId = state.cart.length + 1;
+      const editFlow = Boolean(action.id);
+      const newCartId = editFlow ? action.id : state.cart.length + 1;
       const newCartItem = {
         cartId: newCartId,
         mdSizeSelected: state.mdSizeSelected,
         pizzaOptions: state.subtotalItems,
       };
-      const newCart = state.cart.concat(newCartItem);
-      const newCartTotal = sumCartTotal(newCart);
+      const newCart = editFlow
+        ? state.cart
+            .filter((pizza) => pizza.cartId !== action.id)
+            .concat(newCartItem)
+        : state.cart.concat(newCartItem);
+      const newSortedCart = newCart.sort((a, b) => a.cartId - b.cartId);
+      const newCartTotal = sumCartTotal(newSortedCart);
       return {
         ...state,
-        cart: newCart,
+        cart: newSortedCart,
         cartTotal: newCartTotal,
         displayCartTotal: convertToDisplayValue(newCartTotal),
       };
@@ -246,6 +261,27 @@ const pizzas = (state = initialState, action) => {
         cartTotal: newCartTotalRemovePizza,
         displayCartTotal: convertToDisplayValue(newCartTotalRemovePizza),
       };
+    case EDIT_PIZZA:
+      const pizzaToEdit = state.cart.filter(
+        (pizza) => pizza.cartId === action.id
+      )[0];
+      const editSubtotalItems = pizzaToEdit.pizzaOptions;
+      console.log(editSubtotalItems);
+      const editPizzaOptions = state.pizzaOptions.concat();
+      editPizzaOptions.forEach((option) => {
+        if (editSubtotalItems.includes(option)) {
+          option.active = true;
+        } else {
+          option.active = false;
+        }
+      });
+      const editMdSizeSelected = pizzaToEdit.mdSizeSelected;
+      return {
+        ...state,
+        subtotalItems: editSubtotalItems,
+        pizzaOptions: editPizzaOptions,
+        mdSizeSelected: editMdSizeSelected,
+      };
     default:
       return state;
   }
@@ -253,4 +289,11 @@ const pizzas = (state = initialState, action) => {
 
 // Export statement
 
-export { pizzas, chooseOption, resetBuilder, addToCart, removePizza };
+export {
+  pizzas,
+  chooseOption,
+  resetBuilder,
+  addToCart,
+  removePizza,
+  editPizza,
+};

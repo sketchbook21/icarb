@@ -19,7 +19,7 @@ const OptionCheckBlock = ({
           id={option.name}
           label={option.name}
           disabled={!prevBlockSelected}
-          onClick={() => selectFunction(option.category, option.id)}
+          onChange={() => selectFunction(option.category, option.id)}
         />
       </Col>
     );

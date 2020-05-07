@@ -1,12 +1,20 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Row, Col, Image, Button } from "react-bootstrap";
-import RemovePizzaModal from "../RemovePizzaModal";
-import { removePizza } from "../../modules/pizzas";
+import { removePizza, editPizza } from "../../modules/pizzas";
 import { convertToDisplayValue } from "../../data/pizzaConstants";
+import RemovePizzaModal from "../RemovePizzaModal";
+import EditPizzaModal from "../EditPizzaModal";
 
-const CheckoutItem = ({ id, mdSizeSelected, pizzaOptions, removePizza }) => {
-  const [modalShow, setModalShow] = useState(false);
+const CheckoutItem = ({
+  id,
+  mdSizeSelected,
+  pizzaOptions,
+  removePizza,
+  editPizza,
+}) => {
+  const [modalShowRemove, setModalShowRemove] = useState(false);
+  const [modalShowEdit, setModalShowEdit] = useState(false);
 
   let pizzaImageURL = "/icarb/images/";
   let size = "";
@@ -60,7 +68,7 @@ const CheckoutItem = ({ id, mdSizeSelected, pizzaOptions, removePizza }) => {
               <Button
                 variant="link"
                 className="button-text-only"
-                onClick={() => setModalShow(true)}
+                onClick={() => setModalShowRemove(true)}
               >
                 Remove
               </Button>
@@ -70,7 +78,11 @@ const CheckoutItem = ({ id, mdSizeSelected, pizzaOptions, removePizza }) => {
         <Row className="mb-2">
           <Col className="fw-5 px-0">Details</Col>
           <Col className="px-0 text-right">
-            <Button variant="link" className="button-text-only text-right">
+            <Button
+              variant="link"
+              className="button-text-only text-right"
+              onClick={() => setModalShowEdit(true)}
+            >
               Edit
             </Button>
           </Col>
@@ -83,8 +95,15 @@ const CheckoutItem = ({ id, mdSizeSelected, pizzaOptions, removePizza }) => {
         id={id}
         removePizza={removePizza}
         displayPizzaName={displayPizzaName}
-        show={modalShow}
-        onHide={() => setModalShow(false)}
+        show={modalShowRemove}
+        onHide={() => setModalShowRemove(false)}
+      />
+      <EditPizzaModal
+        id={id}
+        editPizza={editPizza}
+        displayPizzaName={displayPizzaName}
+        show={modalShowEdit}
+        onHide={() => setModalShowEdit(false)}
       />
     </Row>
   );
@@ -93,6 +112,7 @@ const CheckoutItem = ({ id, mdSizeSelected, pizzaOptions, removePizza }) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     removePizza: (id) => dispatch(removePizza(id)),
+    editPizza: (id) => dispatch(editPizza(id)),
   };
 };
 
