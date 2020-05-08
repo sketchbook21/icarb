@@ -3,9 +3,7 @@ import { connect } from "react-redux";
 import { Row, Col, Image, Button } from "react-bootstrap";
 import { removePizza, editPizza, duplicatePizza } from "../../modules/pizzas";
 import { convertToDisplayValue } from "../../data/pizzaConstants";
-import RemovePizzaModal from "../modals/RemovePizzaModal";
-import EditPizzaModal from "../modals/EditPizzaModal";
-import DuplicateModal from "../modals/DuplicateModal";
+import CheckoutModal from "../modals/CheckoutModal";
 
 const CheckoutItem = ({
   id,
@@ -100,26 +98,42 @@ const CheckoutItem = ({
           <Col className="fs-5 ml-2 px-0">{optionItems}</Col>
         </Row>
       </Col>
-      <RemovePizzaModal
-        id={id}
-        removePizza={removePizza}
-        displayPizzaName={displayPizzaName}
+      <CheckoutModal
         show={modalShowRemove}
         onHide={() => setModalShowRemove(false)}
-      />
-      <EditPizzaModal
+        reducerFunction={removePizza}
         id={id}
-        editPizza={editPizza}
         displayPizzaName={displayPizzaName}
+        header="Are you sure you want to remove this pizza?"
+        note="This change cannot be undone"
+        emoji="😢"
+        confirmButtonType="danger"
+        confirmButtonText="Remove"
+      />
+      <CheckoutModal
         show={modalShowEdit}
         onHide={() => setModalShowEdit(false)}
-      />
-      <DuplicateModal
+        reducerFunction={editPizza}
         id={id}
-        duplicatePizza={duplicatePizza}
         displayPizzaName={displayPizzaName}
+        header="Are you sure you want to edit this pizza?"
+        note="Measure twice and cut... many slices of pizza"
+        emoji="🤓"
+        confirmButtonType="warning"
+        confirmButtonText="Edit"
+        editModal={true}
+      />
+      <CheckoutModal
         show={modalShowDuplicate}
         onHide={() => setModalShowDuplicate(false)}
+        reducerFunction={duplicatePizza}
+        id={id}
+        displayPizzaName={displayPizzaName}
+        header="Are you sure you want to duplicate this pizza?"
+        note="They say, the more pizzas the merrier"
+        emoji="😉"
+        confirmButtonType="primary"
+        confirmButtonText="Confirm"
       />
     </Row>
   );
