@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import CheckoutItem from "./tiles/CheckoutItem";
 import { resetBuilder, setShowLoader } from "../modules/pizzas";
-import DemoCompleteModal from "./DemoCompleteModal";
+import DemoCompleteModal from "./modals/DemoCompleteModal";
 import PageLoader from "./PageLoader";
 import { delay } from "../helpers/helperFunctions";
 
@@ -107,6 +107,7 @@ const Checkout = ({
 };
 
 const mapStateToProps = (state) => {
+  console.log(state.pizzas.cart);
   return {
     cart: state.pizzas.cart,
     displayCartTotal: state.pizzas.displayCartTotal,

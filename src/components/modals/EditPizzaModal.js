@@ -2,8 +2,8 @@ import React from "react";
 import { connect } from "react-redux";
 import { Modal, Button } from "react-bootstrap";
 import { useHistory } from "react-router";
-import { setShowLoader } from "../modules/pizzas";
-import { delay } from "../helpers/helperFunctions";
+import { setShowLoader } from "../../modules/pizzas";
+import { delay } from "../../helpers/helperFunctions";
 
 const EditPizzaModal = ({
   id,

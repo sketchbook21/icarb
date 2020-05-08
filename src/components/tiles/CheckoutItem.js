@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Row, Col, Image, Button } from "react-bootstrap";
-import { removePizza, editPizza } from "../../modules/pizzas";
+import { removePizza, editPizza, duplicatePizza } from "../../modules/pizzas";
 import { convertToDisplayValue } from "../../data/pizzaConstants";
-import RemovePizzaModal from "../RemovePizzaModal";
-import EditPizzaModal from "../EditPizzaModal";
+import RemovePizzaModal from "../modals/RemovePizzaModal";
+import EditPizzaModal from "../modals/EditPizzaModal";
+import DuplicateModal from "../modals/DuplicateModal";
 
 const CheckoutItem = ({
   id,
@@ -12,9 +13,11 @@ const CheckoutItem = ({
   pizzaOptions,
   removePizza,
   editPizza,
+  duplicatePizza,
 }) => {
   const [modalShowRemove, setModalShowRemove] = useState(false);
   const [modalShowEdit, setModalShowEdit] = useState(false);
+  const [modalShowDuplicate, setModalShowDuplicate] = useState(false);
 
   let pizzaImageURL = "/icarb/images/";
   let size = "";
@@ -60,19 +63,25 @@ const CheckoutItem = ({
       <Col md={8}>
         <Row className="pb-3 line-below">
           <Col md={10} className="fs-3 fw-7 px-0">
-            {displayPizzaName}
+            <div>{displayPizzaName}</div>
+            <Button
+              variant="link"
+              className="button-text-only"
+              onClick={() => setModalShowDuplicate(true)}
+            >
+              Duplicate Pizza
+            </Button>
           </Col>
           <Col md={2} className="fs-3 fw-7 text-right px-0">
-            <div className="">{convertToDisplayValue(itemTotal)}</div>
-            <div className="">
-              <Button
-                variant="link"
-                className="button-text-only"
-                onClick={() => setModalShowRemove(true)}
-              >
-                Remove
-              </Button>
-            </div>
+            <div>{convertToDisplayValue(itemTotal)}</div>
+
+            <Button
+              variant="link"
+              className="button-text-only"
+              onClick={() => setModalShowRemove(true)}
+            >
+              Remove
+            </Button>
           </Col>
         </Row>
         <Row className="mb-2">
@@ -105,6 +114,13 @@ const CheckoutItem = ({
         show={modalShowEdit}
         onHide={() => setModalShowEdit(false)}
       />
+      <DuplicateModal
+        id={id}
+        duplicatePizza={duplicatePizza}
+        displayPizzaName={displayPizzaName}
+        show={modalShowDuplicate}
+        onHide={() => setModalShowDuplicate(false)}
+      />
     </Row>
   );
 };
@@ -113,6 +129,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     removePizza: (id) => dispatch(removePizza(id)),
     editPizza: (id) => dispatch(editPizza(id)),
+    duplicatePizza: (id) => dispatch(duplicatePizza(id)),
   };
 };
 
