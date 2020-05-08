@@ -41,18 +41,14 @@ const DemoStartModal = ({ show, onHide }) => {
                     state, none seems more practical, and tasty, than a pizza
                     ordering experience.
                   </Col>
-                  <Col
-                    md={12}
-                    className="mt-3 fs-4"
-                    style={{ lineHeight: "1.5" }}
-                  >
+                  <Col md={12} className="mt-3" style={{ lineHeight: "1.5" }}>
                     <i>
                       This is a front-end only (aka serverless) application,
                       therefore changes made during the experience will be reset
                       if the website is refreshed.
                     </i>
                   </Col>
-                  <Col md={12} className="mt-3 fs-4" style={{ color: "" }}>
+                  <Col md={12} className="mt-3" style={{ color: "" }}>
                     Built by Gilbert Hsu{" "}
                     <span role="img" aria-label="pizza">
                       🤓
@@ -63,7 +59,6 @@ const DemoStartModal = ({ show, onHide }) => {
                         href="https://www.linkedin.com/in/gilberthsu/"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="fw-3 fs-4"
                       >
                         LinkedIn
                       </a>{" "}
@@ -72,7 +67,6 @@ const DemoStartModal = ({ show, onHide }) => {
                         href="https://github.com/sketchbook21"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="fw-3 fs-4"
                       >
                         Github
                       </a>
