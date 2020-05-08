@@ -3,10 +3,11 @@ import { connect } from "react-redux";
 import { Container, Button } from "react-bootstrap";
 import { useHistory } from "react-router";
 import { delay } from "../helpers/helperFunctions";
-import { setShowLoader } from "../modules/pizzas";
+import { setShowLoader, hideHomeModal } from "../modules/pizzas";
 import PageLoader from "./PageLoader";
+import DemoStartModal from "./modals/DemoStartModal";
 
-const Home = ({ showLoader, setShowLoader }) => {
+const Home = ({ showLoader, setShowLoader, showHomeModal, hideHomeModal }) => {
   const history = useHistory();
   const handleToOrder = async () => {
     setShowLoader(true);
@@ -22,7 +23,7 @@ const Home = ({ showLoader, setShowLoader }) => {
   return (
     <div className="hero">
       <Container>
-        <div className="fs-1 fw-5 mt-5 mb-3 ">
+        <div className="fs-1 fw-7 mt-5 mb-3 ">
           iCarb{" "}
           <span role="img" aria-label="pizza">
             🍕
@@ -34,6 +35,7 @@ const Home = ({ showLoader, setShowLoader }) => {
           Order Now
         </Button>
       </Container>
+      <DemoStartModal show={showHomeModal} onHide={hideHomeModal} />
     </div>
   );
 };
@@ -41,12 +43,14 @@ const Home = ({ showLoader, setShowLoader }) => {
 const mapStateToProps = (state) => {
   return {
     showLoader: state.pizzas.showLoader,
+    showHomeModal: state.pizzas.showHomeModal,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     setShowLoader: (boolean) => dispatch(setShowLoader(boolean)),
+    hideHomeModal: () => dispatch(hideHomeModal()),
   };
 };
 
