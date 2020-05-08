@@ -1,22 +1,35 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Modal, Button } from "react-bootstrap";
+import { useHistory } from "react-router";
 import { setShowLoader } from "../../modules/pizzas";
 import { delay } from "../../helpers/helperFunctions";
 
-const DuplicateModal = ({
+const CheckoutModal = ({
   id,
-  duplicatePizza,
+  reducerFunction,
   displayPizzaName,
   show,
   onHide,
   setShowLoader,
+  header,
+  note,
+  emoji,
+  confirmButtonType,
+  confirmButtonText,
+  editModal = false,
 }) => {
-  const handleDuplicate = async () => {
+  const history = useHistory();
+  const handleReducer = async (cartId) => {
     setShowLoader(true);
-    duplicatePizza(id);
+    reducerFunction(cartId);
     onHide();
-    await delay(250);
+    if (!editModal) {
+      await delay(250);
+    } else {
+      await delay(1000);
+      history.push(`/icarb/pizza/${cartId}/edit`);
+    }
     setShowLoader(false);
   };
   return (
@@ -29,21 +42,21 @@ const DuplicateModal = ({
     >
       <Modal.Header>
         <div className="fw-5" id="contained-modal-title-vcenter">
-          Are you sure you want to duplicate this pizza? <br />
+          {header} <br />
         </div>
       </Modal.Header>
       <Modal.Body>
         <span className="fw-5">{displayPizzaName}</span>
         <br />
         <br />
-        Note: They say, the more <i className="fw-5">pizzas</i> the merrier{" "}
-        <span role="img" aria-label="wink-face">
-          😉
+        Note: {note}{" "}
+        <span role="img" aria-label="emoji">
+          {emoji}
         </span>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="primary" onClick={(id) => handleDuplicate(id)}>
-          Confirm
+        <Button variant={confirmButtonType} onClick={() => handleReducer(id)}>
+          {confirmButtonText}
         </Button>
         <Button variant="outline-secondary" onClick={onHide}>
           Dismiss
@@ -59,4 +72,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(null, mapDispatchToProps)(DuplicateModal);
+export default connect(null, mapDispatchToProps)(CheckoutModal);
