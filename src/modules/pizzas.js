@@ -12,6 +12,7 @@ const RESET_BUILDER = "RESET_BUILDER";
 const ADD_TO_CART = "ADD_TO_CART";
 const REMOVE_PIZZA = "REMOVE_PIZZA";
 const EDIT_PIZZA = "EDIT_PIZZA";
+const DUPLICATE_PIZZA = "DUPLICATE_PIZZA";
 const SET_SHOW_LOADER = "SET_SHOW_LOADER";
 
 // Action creators
@@ -47,6 +48,13 @@ const removePizza = (id) => {
 const editPizza = (id) => {
   return {
     type: EDIT_PIZZA,
+    id,
+  };
+};
+
+const duplicatePizza = (id) => {
+  return {
+    type: DUPLICATE_PIZZA,
     id,
   };
 };
@@ -240,7 +248,16 @@ const pizzas = (state = initialState, action) => {
       };
     case ADD_TO_CART:
       const editFlow = Boolean(action.id);
-      const newCartId = editFlow ? action.id : state.cart.length + 1;
+      let newCartId;
+      if (editFlow) {
+        newCartId = action.id;
+      } else {
+        if (state.cart.length === 0) {
+          newCartId = 1;
+        } else {
+          newCartId = state.cart[state.cart.length - 1].cartId + 1;
+        }
+      }
       const newCartItem = {
         cartId: newCartId,
         mdSizeSelected: state.mdSizeSelected,
@@ -290,6 +307,15 @@ const pizzas = (state = initialState, action) => {
         pizzaOptions: editPizzaOptions,
         mdSizeSelected: editMdSizeSelected,
       };
+    case DUPLICATE_PIZZA:
+      const pizzaToDuplicate = {
+        ...state.cart.filter((pizza) => pizza.cartId === action.id)[0],
+      };
+      const newCartIdForDuplicate =
+        state.cart[state.cart.length - 1].cartId + 1;
+      pizzaToDuplicate.cartId = newCartIdForDuplicate;
+      const newCartAfterDuplicate = state.cart.concat(pizzaToDuplicate);
+      return { ...state, cart: newCartAfterDuplicate };
     case SET_SHOW_LOADER:
       const newShowLoader = action.show;
       return { ...state, showLoader: newShowLoader };
@@ -307,5 +333,6 @@ export {
   addToCart,
   removePizza,
   editPizza,
+  duplicatePizza,
   setShowLoader,
 };

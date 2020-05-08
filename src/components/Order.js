@@ -12,7 +12,7 @@ import { delay } from "../helpers/helperFunctions";
 import SubtotalContainer from "./containers/SubtotalContainer";
 import OptionBlock from "./tiles/OptionBlock";
 import OptionCheckBlock from "./tiles/OptionCheckBlock";
-import ResetModal from "./ResetModal";
+import ResetModal from "./modals/ResetModal";
 import PageLoader from "./PageLoader";
 
 const Order = ({
