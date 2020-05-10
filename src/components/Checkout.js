@@ -3,7 +3,7 @@ import { useHistory } from "react-router";
 import { connect } from "react-redux";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import CheckoutItem from "./tiles/CheckoutItem";
-import { resetBuilder, setShowLoader, resetDemo } from "../modules/pizzas";
+import { setShowLoader, resetDemo } from "../modules/pizzas";
 import DemoCompleteModal from "./modals/DemoCompleteModal";
 import PageLoader from "./PageLoader";
 import { delay } from "../helpers/helperFunctions";
@@ -11,7 +11,6 @@ import { delay } from "../helpers/helperFunctions";
 const Checkout = ({
   cart,
   displayCartTotal,
-  resetBuilder,
   showLoader,
   setShowLoader,
   resetDemo,
@@ -21,7 +20,6 @@ const Checkout = ({
 
   const handleToOrder = async () => {
     setShowLoader(true);
-    resetBuilder();
     await delay(500);
     history.push("/icarb/pizza/new");
     setShowLoader(false);
@@ -130,7 +128,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    resetBuilder: () => dispatch(resetBuilder()),
     setShowLoader: (boolean) => dispatch(setShowLoader(boolean)),
     resetDemo: () => dispatch(resetDemo()),
   };

@@ -1,18 +1,37 @@
 import React from "react";
 import { connect } from "react-redux";
-import { useHistory } from "react-router";
+import { withRouter } from "react-router";
 import { Navbar, Container, Image, Badge } from "react-bootstrap";
+import { setShowLeaveBuilderModal } from "../modules/pizzas";
 import ShoppingBag from "./icons/ShoppingBag";
 
-const Nav = ({ cart }) => {
-  const history = useHistory();
-
+const Nav = ({
+  cart,
+  subtotalItems,
+  history,
+  location,
+  setShowLeaveBuilderModal,
+}) => {
   const handleHomeUrl = () => {
-    history.push("/icarb");
+    if (
+      location.pathname.includes("/icarb/pizza") &&
+      subtotalItems.length > 0
+    ) {
+      setShowLeaveBuilderModal(true, "/icarb");
+    } else {
+      history.push("/icarb");
+    }
   };
 
   const handleCheckoutUrl = () => {
-    history.push("/icarb/checkout");
+    if (
+      location.pathname.includes("/icarb/pizza") &&
+      subtotalItems.length > 0
+    ) {
+      setShowLeaveBuilderModal(true, "/icarb/checkout");
+    } else {
+      history.push("/icarb/checkout");
+    }
   };
 
   const cartLength = cart.length > 0 ? cart.length : null;
@@ -49,7 +68,15 @@ const Nav = ({ cart }) => {
 const mapStateToProps = (state) => {
   return {
     cart: state.pizzas.cart,
+    subtotalItems: state.pizzas.subtotalItems,
   };
 };
 
-export default connect(mapStateToProps, null)(Nav);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setShowLeaveBuilderModal: (boolean, path) =>
+      dispatch(setShowLeaveBuilderModal(boolean, path)),
+  };
+};
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Nav));
