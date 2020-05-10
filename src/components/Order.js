@@ -10,12 +10,13 @@ import {
   Popover,
   Overlay,
 } from "react-bootstrap";
-import { useHistory, useParams } from "react-router";
+import { withRouter, useParams } from "react-router";
 import {
   chooseOption,
   resetBuilder,
   addToCart,
   setShowLoader,
+  setShowLeaveBuilderModal,
 } from "../modules/pizzas";
 import { delay } from "../helpers/helperFunctions";
 import SubtotalContainer from "./containers/SubtotalContainer";
@@ -23,8 +24,11 @@ import OptionBlock from "./tiles/OptionBlock";
 import OptionCheckBlock from "./tiles/OptionCheckBlock";
 import ResetModal from "./modals/ResetModal";
 import PageLoader from "./PageLoader";
+import LeaveBuilderModal from "./modals/LeaveBuilderModal";
 
 const Order = ({
+  history,
+  location,
   pizzaSizes,
   crustTypes,
   pizzaStyles,
@@ -37,6 +41,9 @@ const Order = ({
   cart,
   showLoader,
   setShowLoader,
+  showLeaveBuilder,
+  setShowLeaveBuilderModal,
+  afterLeaveBuilderPath,
 }) => {
   // for checkout tooltip
   const [show, setShow] = useState(false);
@@ -45,7 +52,6 @@ const Order = ({
 
   const [modalShow, setModalShow] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
-  const history = useHistory();
   const { id: urlId } = useParams();
   const cheesePizzas = pizzaStyles.filter((pizza) => pizza.type === "cheese");
   const vegPizzas = pizzaStyles.filter((pizza) => pizza.type === "veg");
@@ -91,10 +97,14 @@ const Order = ({
   };
 
   const handleGoToCheckout = async () => {
-    setShowLoader(true);
-    await delay(250);
-    setShowLoader(false);
-    history.push("/icarb/checkout");
+    if (
+      location.pathname.includes("/icarb/pizza") &&
+      subtotalItems.length > 0
+    ) {
+      setShowLeaveBuilderModal(true, "/icarb/checkout");
+    } else {
+      history.push("/icarb/checkout");
+    }
   };
 
   let pizzaImageURL = "/icarb/images/cheese.jpeg";
@@ -302,6 +312,13 @@ const Order = ({
         onHide={() => setModalShow(false)}
         handleReset={handleReset}
       />
+      <LeaveBuilderModal
+        show={showLeaveBuilder}
+        onHide={() => setShowLeaveBuilderModal(false)}
+        setShowLoader={setShowLoader}
+        resetBuilder={resetBuilder}
+        afterLeaveBuilderPath={afterLeaveBuilderPath}
+      />
       <CheckoutTooltip />
     </Container>
   );
@@ -325,6 +342,8 @@ const mapStateToProps = (state) => {
     subtotalItems: state.pizzas.subtotalItems,
     cart: state.pizzas.cart,
     showLoader: state.pizzas.showLoader,
+    showLeaveBuilder: state.pizzas.showLeaveBuilder,
+    afterLeaveBuilderPath: state.pizzas.afterLeaveBuilderPath,
   };
 };
 
@@ -335,7 +354,9 @@ const mapDispatchToProps = (dispatch) => {
     resetBuilder: () => dispatch(resetBuilder()),
     addToCart: (id) => dispatch(addToCart(id)),
     setShowLoader: (boolean) => dispatch(setShowLoader(boolean)),
+    setShowLeaveBuilderModal: (boolean, path) =>
+      dispatch(setShowLeaveBuilderModal(boolean, path)),
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Order);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Order));

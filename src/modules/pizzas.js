@@ -16,6 +16,7 @@ const DUPLICATE_PIZZA = "DUPLICATE_PIZZA";
 const SET_SHOW_LOADER = "SET_SHOW_LOADER";
 const HIDE_HOME_MODAL = "HIDE_HOME_MODAL";
 const RESET_DEMO = "RESET_DEMO";
+const SET_SHOW_LEAVE_BUILDER_MODAL = "SET_SHOW_LEAVE_BUILDER_MODAL";
 
 // Action creators
 
@@ -80,6 +81,14 @@ const resetDemo = () => {
   };
 };
 
+const setShowLeaveBuilderModal = (boolean, path = "") => {
+  return {
+    type: SET_SHOW_LEAVE_BUILDER_MODAL,
+    show: boolean,
+    path,
+  };
+};
+
 // initialState;
 
 const initialState = {
@@ -91,6 +100,8 @@ const initialState = {
   displayCartTotal: "",
   showLoader: false,
   showHomeModal: true,
+  showLeaveBuilder: false,
+  afterLeaveBuilderPath: "",
 };
 
 // const initialState = {
@@ -169,6 +180,7 @@ const initialState = {
 //   displayCartTotal: "$400.00",
 //   showLoader: false,
 //   showHomeModal: true,
+//   showLeaveBuilder: false
 // };
 
 // misc functions
@@ -346,6 +358,14 @@ const pizzas = (state = initialState, action) => {
       return { ...state, showHomeModal: false };
     case RESET_DEMO:
       return { ...initialState, showHomeModal: false };
+    case SET_SHOW_LEAVE_BUILDER_MODAL:
+      const show = action.show;
+      const path = action.path;
+      return {
+        ...state,
+        showLeaveBuilder: show,
+        afterLeaveBuilderPath: path,
+      };
     default:
       return state;
   }
@@ -364,4 +384,5 @@ export {
   setShowLoader,
   hideHomeModal,
   resetDemo,
+  setShowLeaveBuilderModal,
 };
