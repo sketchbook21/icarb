@@ -1,4 +1,4 @@
-# iCarb Pizza
+# iCarb
 
 iCarb is an online food ordering experience built in React with Redux and React Router.
 
