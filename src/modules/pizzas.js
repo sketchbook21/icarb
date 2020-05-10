@@ -180,7 +180,8 @@ const initialState = {
 //   displayCartTotal: "$400.00",
 //   showLoader: false,
 //   showHomeModal: true,
-//   showLeaveBuilder: false
+//   showLeaveBuilder: false,
+//   afterLeaveBuilderPath: "",
 // };
 
 // misc functions
