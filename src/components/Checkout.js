@@ -3,7 +3,7 @@ import { useHistory } from "react-router";
 import { connect } from "react-redux";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import CheckoutItem from "./tiles/CheckoutItem";
-import { resetBuilder, setShowLoader } from "../modules/pizzas";
+import { resetBuilder, setShowLoader, resetDemo } from "../modules/pizzas";
 import DemoCompleteModal from "./modals/DemoCompleteModal";
 import PageLoader from "./PageLoader";
 import { delay } from "../helpers/helperFunctions";
@@ -14,6 +14,7 @@ const Checkout = ({
   resetBuilder,
   showLoader,
   setShowLoader,
+  resetDemo,
 }) => {
   const history = useHistory();
   const [modalShow, setModalShow] = useState(false);
@@ -23,6 +24,15 @@ const Checkout = ({
     resetBuilder();
     await delay(500);
     history.push("/icarb/pizza/new");
+    setShowLoader(false);
+  };
+
+  const handleResetDemo = async () => {
+    setModalShow(false);
+    resetDemo();
+    setShowLoader(true);
+    await delay(1000);
+    history.push("/icarb");
     setShowLoader(false);
   };
 
@@ -101,13 +111,16 @@ const Checkout = ({
           Order Now
         </Button>
       </Row>
-      <DemoCompleteModal show={modalShow} onHide={() => setModalShow(false)} />
+      <DemoCompleteModal
+        show={modalShow}
+        onHide={() => setModalShow(false)}
+        handleResetDemo={handleResetDemo}
+      />
     </Container>
   );
 };
 
 const mapStateToProps = (state) => {
-  console.log(state.pizzas.cart);
   return {
     cart: state.pizzas.cart,
     displayCartTotal: state.pizzas.displayCartTotal,
@@ -119,6 +132,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     resetBuilder: () => dispatch(resetBuilder()),
     setShowLoader: (boolean) => dispatch(setShowLoader(boolean)),
+    resetDemo: () => dispatch(resetDemo()),
   };
 };
 

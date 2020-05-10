@@ -15,6 +15,7 @@ const EDIT_PIZZA = "EDIT_PIZZA";
 const DUPLICATE_PIZZA = "DUPLICATE_PIZZA";
 const SET_SHOW_LOADER = "SET_SHOW_LOADER";
 const HIDE_HOME_MODAL = "HIDE_HOME_MODAL";
+const RESET_DEMO = "RESET_DEMO";
 
 // Action creators
 
@@ -70,6 +71,12 @@ const setShowLoader = (boolean) => {
 const hideHomeModal = () => {
   return {
     type: HIDE_HOME_MODAL,
+  };
+};
+
+const resetDemo = () => {
+  return {
+    type: RESET_DEMO,
   };
 };
 
@@ -160,6 +167,8 @@ const initialState = {
 //   ],
 //   cartTotal: 400,
 //   displayCartTotal: "$400.00",
+//   showLoader: false,
+//   showHomeModal: true,
 // };
 
 // misc functions
@@ -329,6 +338,8 @@ const pizzas = (state = initialState, action) => {
       return { ...state, showLoader: newShowLoader };
     case HIDE_HOME_MODAL:
       return { ...state, showHomeModal: false };
+    case RESET_DEMO:
+      return { ...initialState, showHomeModal: false };
     default:
       return state;
   }
@@ -346,4 +357,5 @@ export {
   duplicatePizza,
   setShowLoader,
   hideHomeModal,
+  resetDemo,
 };
