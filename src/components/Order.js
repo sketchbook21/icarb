@@ -1,6 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { connect } from "react-redux";
-import { Container, Row, Col, Button, Image, Alert } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Button,
+  Image,
+  Alert,
+  Popover,
+  Overlay,
+} from "react-bootstrap";
 import { useHistory, useParams } from "react-router";
 import {
   chooseOption,
@@ -29,6 +38,11 @@ const Order = ({
   showLoader,
   setShowLoader,
 }) => {
+  // for checkout tooltip
+  const [show, setShow] = useState(false);
+  const [target, setTarget] = useState(null);
+  const ref = useRef(null);
+
   const [modalShow, setModalShow] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
   const history = useHistory();
@@ -36,6 +50,19 @@ const Order = ({
   const cheesePizzas = pizzaStyles.filter((pizza) => pizza.type === "cheese");
   const vegPizzas = pizzaStyles.filter((pizza) => pizza.type === "veg");
   const meatPizzas = pizzaStyles.filter((pizza) => pizza.type === "meat");
+
+  const checkoutDisabled = subtotalItems.length > 2 ? false : true;
+
+  const handleShowTooltip = (event) => {
+    if (checkoutDisabled) {
+      setShow(true);
+      setTarget(event.target);
+    }
+  };
+
+  const handleHideTooltip = () => {
+    setShow(false);
+  };
 
   const handleContinue = async () => {
     setShowLoader(true);
@@ -97,11 +124,29 @@ const Order = ({
     ? "my-3 fw-5"
     : "my-3 fw-5 disabled-block";
 
-  const checkoutDisabled = subtotalItems.length > 2 ? false : true;
-
   if (showLoader) {
     return <PageLoader />;
   }
+
+  const buttonClassName = checkoutDisabled ? "mb-3 overlay-button" : "mb-3";
+
+  const CheckoutTooltip = () => (
+    <Overlay
+      show={show}
+      target={target}
+      placement="bottom"
+      container={ref.current}
+      containerPadding={20}
+    >
+      <Popover id="popover-contained">
+        <Popover.Title as="h3">Pizza Builder Incomplete</Popover.Title>
+        <Popover.Content>
+          Must select <strong>Size, Crust Style and Toppings</strong> to
+          continue.
+        </Popover.Content>
+      </Popover>
+    </Overlay>
+  );
 
   return (
     <Container className="mt-5 mx-auto">
@@ -122,37 +167,53 @@ const Order = ({
             mdSizeSelected={mdSizeSelected}
           />
           <div className="line-below">
-            <Button
-              className="mb-3"
-              block={true}
-              disabled={checkoutDisabled}
-              onClick={handleContinue}
+            <span
+              onMouseOver={handleShowTooltip}
+              onMouseLeave={handleHideTooltip}
             >
-              Continue
-            </Button>
-            {cart.length === 0 && (
               <Button
-                className="mb-3"
-                variant="outline-info"
+                className={buttonClassName}
                 block={true}
                 disabled={checkoutDisabled}
-                onClick={handleBuildAnother}
+                onClick={handleContinue}
               >
-                Add To Cart
+                Continue
               </Button>
+            </span>
+
+            {cart.length === 0 && (
+              <span
+                onMouseOver={handleShowTooltip}
+                onMouseLeave={handleHideTooltip}
+              >
+                <Button
+                  className={buttonClassName}
+                  variant="outline-info"
+                  block={true}
+                  disabled={checkoutDisabled}
+                  onClick={handleBuildAnother}
+                >
+                  Add To Cart
+                </Button>
+              </span>
             )}
             {cart.length > 0 && (
               <Row>
                 <Col md={6} className="pr-2">
-                  <Button
-                    className="mb-3"
-                    variant="outline-info"
-                    block={true}
-                    disabled={checkoutDisabled}
-                    onClick={handleBuildAnother}
+                  <span
+                    onMouseOver={handleShowTooltip}
+                    onMouseLeave={handleHideTooltip}
                   >
-                    Add To Cart
-                  </Button>
+                    <Button
+                      className={buttonClassName}
+                      variant="outline-info"
+                      block={true}
+                      disabled={checkoutDisabled}
+                      onClick={handleBuildAnother}
+                    >
+                      Add To Cart
+                    </Button>
+                  </span>
                 </Col>
                 <Col md={6} className="pl-2">
                   <Button
@@ -201,7 +262,7 @@ const Order = ({
           />
           <div className="option-block">
             <div className={pizzaStyleClassName}>
-              Choose from our House Specials.
+              Choose your topping style.
             </div>
             <OptionBlock
               title="Cheese"
@@ -241,6 +302,7 @@ const Order = ({
         onHide={() => setModalShow(false)}
         handleReset={handleReset}
       />
+      <CheckoutTooltip />
     </Container>
   );
 };
