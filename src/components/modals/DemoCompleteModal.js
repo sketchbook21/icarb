@@ -1,5 +1,4 @@
 import React from "react";
-import { useHistory } from "react-router";
 import { Container, Modal, Row, Col, Button } from "react-bootstrap";
 
 const DemoCompleteModal = ({ show, onHide, handleResetDemo }) => {
