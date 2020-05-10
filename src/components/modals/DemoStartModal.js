@@ -78,7 +78,7 @@ const DemoStartModal = ({ show, onHide }) => {
                   className="mt-3 text-right"
                   style={{ color: "gray" }}
                 >
-                  <Button onClick={() => onHide(false)}>Explore</Button>
+                  <Button onClick={() => onHide()}>Explore</Button>
                 </Col>
               </Container>
             </Col>
