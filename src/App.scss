@@ -26,25 +26,34 @@ body {
 .modal-start-hero {
   background-image: url("images/background-3.jpg"); /* The image used */
   background-color: #cccccc; /* Used if the image is unavailable */
-  height: calc(100vh - 56px); /* You must set a specified height */
   background-position: center; /* Center the image */
   background-repeat: no-repeat; /* Do not repeat the image */
   background-size: cover;
   overflow: hidden;
   text-align: center;
-  border-radius: 5px 0 0 5px;
+  border-radius: 4px 0 0 4px;
 }
 
 .modal-complete-hero {
   background-image: url("images/background-2.jpg"); /* The image used */
   background-color: #cccccc; /* Used if the image is unavailable */
-  height: calc(100vh - 56px); /* You must set a specified height */
   background-position: center; /* Center the image */
   background-repeat: no-repeat; /* Do not repeat the image */
   background-size: cover;
   overflow: hidden;
   text-align: center;
-  border-radius: 5px 0 0 5px;
+  border-radius: 4px 0 0 4px;
+}
+
+.modal-mobile-hero {
+  background-image: url("images/background-1.jpg"); /* The image used */
+  background-color: #cccccc; /* Used if the image is unavailable */
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover;
+  overflow: hidden;
+  text-align: center;
+  border-radius: 4px 4px 0 0;
 }
 
 .fs-1 {

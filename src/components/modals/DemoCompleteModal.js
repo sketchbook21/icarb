@@ -13,12 +13,8 @@ const DemoCompleteModal = ({ show, onHide, handleResetDemo }) => {
       >
         <Container>
           <Row>
-            <Col
-              md={4}
-              className="modal-complete-hero"
-              style={{ height: "50vh" }}
-            />
-            <Col md={8} className="d-flex align-items-center">
+            <Col md={4} className="modal-complete-hero" />
+            <Col md={8} className="d-flex align-items-center my-5">
               <Container>
                 <Row>
                   <Col md={12} className="fs-2 fw-7">
@@ -38,8 +34,8 @@ const DemoCompleteModal = ({ show, onHide, handleResetDemo }) => {
                     in React with Redux!
                   </Col>
                   <Col md={12} className="mt-4" style={{ lineHeight: "1.5" }}>
-                    We hope this didn't make you too hungry... But if it did,
-                    you can find these
+                    We hope the experience didn't make you too hungry... But if
+                    it did, you can find these
                     <span className="fw-5"> exact</span> pies at my favorite
                     pizza shop,{" "}
                     <a
