@@ -34,7 +34,7 @@ const PreventMobileModal = ({ show }) => {
                     Online food ordering experience built in React with Redux.
                   </Col>
                   <Col md={12} className="mt-4">
-                    Sorry, this demo is only available on desktop.
+                    Sorry, this experience is only available on desktop.
                   </Col>
                   <Col md={12} className="mt-4 mb-5" style={{ color: "" }}>
                     Built by Gilbert Hsu{" "}
