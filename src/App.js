@@ -1,6 +1,11 @@
 import React from "react";
 import "./App.scss";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+} from "react-router-dom";
 import { Provider } from "react-redux";
 import Home from "./components/Home";
 import Order from "./components/Order";
@@ -15,10 +20,10 @@ const App = (props) => {
         <Route component={Nav} path="/icarb" />
         <Switch>
           <Route component={Home} exact path="/icarb" />
-          <Route component={Order} exact path="/icarb/pizza/new" />
-          <Route component={Order} exact path="/icarb/pizza/:id/edit" />
-          <Route component={Checkout} exact path="/icarb/checkout" />
-          <Route component={NotFound} path="/icarb/" />
+          <Route component={Order} path="/icarb/pizza/new" />
+          <Route component={Order} path="/icarb/pizza/:id/edit" />
+          <Route component={Checkout} path="/icarb/checkout" />
+          <Redirect to="/icarb" />
         </Switch>
       </Router>
     </Provider>
