@@ -332,7 +332,13 @@ const pizzas = (state = initialState, action) => {
         state.cart[state.cart.length - 1].cartId + 1;
       pizzaToDuplicate.cartId = newCartIdForDuplicate;
       const newCartAfterDuplicate = state.cart.concat(pizzaToDuplicate);
-      return { ...state, cart: newCartAfterDuplicate };
+      const newCartTotalAfterDuplicate = sumCartTotal(newCartAfterDuplicate);
+      return {
+        ...state,
+        cart: newCartAfterDuplicate,
+        cartTotal: newCartTotalAfterDuplicate,
+        displayCartTotal: convertToDisplayValue(newCartTotalAfterDuplicate),
+      };
     case SET_SHOW_LOADER:
       const newShowLoader = action.show;
       return { ...state, showLoader: newShowLoader };
