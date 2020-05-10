@@ -1,5 +1,4 @@
 import React from "react";
-import { connect } from "react-redux";
 import { useHistory } from "react-router";
 import { Modal, Button } from "react-bootstrap";
 import { delay } from "../../helpers/helperFunctions";
@@ -54,10 +53,4 @@ const LeaveBuilderModal = ({
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    afterLeaveBuilderPath: state.pizzas.afterLeaveBuilderPath,
-  };
-};
-
-export default connect(mapStateToProps, null)(LeaveBuilderModal);
+export default LeaveBuilderModal;

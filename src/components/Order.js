@@ -43,6 +43,7 @@ const Order = ({
   setShowLoader,
   showLeaveBuilder,
   setShowLeaveBuilderModal,
+  afterLeaveBuilderPath,
 }) => {
   // for checkout tooltip
   const [show, setShow] = useState(false);
@@ -316,6 +317,7 @@ const Order = ({
         onHide={() => setShowLeaveBuilderModal(false)}
         setShowLoader={setShowLoader}
         resetBuilder={resetBuilder}
+        afterLeaveBuilderPath={afterLeaveBuilderPath}
       />
       <CheckoutTooltip />
     </Container>
@@ -341,6 +343,7 @@ const mapStateToProps = (state) => {
     cart: state.pizzas.cart,
     showLoader: state.pizzas.showLoader,
     showLeaveBuilder: state.pizzas.showLeaveBuilder,
+    afterLeaveBuilderPath: state.pizzas.afterLeaveBuilderPath,
   };
 };
 
