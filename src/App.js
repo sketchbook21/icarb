@@ -9,7 +9,6 @@ import {
 import { Provider } from "react-redux";
 import Home from "./components/Home";
 import Order from "./components/Order";
-import NotFound from "./components/NotFound";
 import Nav from "./components/Nav";
 import Checkout from "./components/Checkout";
 
