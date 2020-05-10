@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { Container, Button } from "react-bootstrap";
 import { useHistory } from "react-router";
@@ -6,15 +6,24 @@ import { delay } from "../helpers/helperFunctions";
 import { setShowLoader, hideHomeModal } from "../modules/pizzas";
 import PageLoader from "./PageLoader";
 import DemoStartModal from "./modals/DemoStartModal";
+import PreventMobileModal from "./modals/PreventMobileModal";
 
 const Home = ({ showLoader, setShowLoader, showHomeModal, hideHomeModal }) => {
   const history = useHistory();
+  const [showPreventMobile, setShowPreventMobile] = useState(false);
   const handleToOrder = async () => {
     setShowLoader(true);
     await delay(500);
     history.push("/icarb/pizza/new");
     setShowLoader(false);
   };
+
+  useEffect(() => {
+    if (window.matchMedia("(max-width: 800px)").matches) {
+      hideHomeModal();
+      setShowPreventMobile(true);
+    }
+  }, [showPreventMobile, hideHomeModal]);
 
   if (showLoader) {
     return <PageLoader />;
@@ -36,6 +45,7 @@ const Home = ({ showLoader, setShowLoader, showHomeModal, hideHomeModal }) => {
         </Button>
       </Container>
       <DemoStartModal show={showHomeModal} onHide={hideHomeModal} />
+      <PreventMobileModal show={showPreventMobile} />
     </div>
   );
 };
