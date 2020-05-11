@@ -40,7 +40,7 @@ const DemoStartModal = ({ show, onHide }) => {
                   <Col md={12} className="mt-3" style={{ lineHeight: "1.5" }}>
                     <i>
                       This is a front-end only (aka serverless) application,
-                      therefore changes made during the experience will be reset
+                      therefore changes made during the experience will be lost
                       if the website is refreshed.
                     </i>
                   </Col>

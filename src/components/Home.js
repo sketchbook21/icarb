@@ -38,7 +38,9 @@ const Home = ({ showLoader, setShowLoader, showHomeModal, hideHomeModal }) => {
             🍕
           </span>
         </div>
-        <div className="fs-3 fw-4 mt-2">Because everyday can be cheat day.</div>
+        <div className="fs-3 fw-4 mt-2">
+          Because every day can be cheat day.
+        </div>
         <div className="fs-3 fw-4 mt-2">Starting at $11.50</div>
         <Button className="mt-4" onClick={handleToOrder}>
           Order Now
