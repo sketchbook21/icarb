@@ -34,7 +34,7 @@ const DemoCompleteModal = ({ show, onHide, handleResetDemo }) => {
                     in React with Redux!
                   </Col>
                   <Col md={12} className="mt-4" style={{ lineHeight: "1.5" }}>
-                    We hope the experience didn't make you too hungry... But if
+                    I hope the experience didn't make you too hungry... But if
                     it did, you can find these
                     <span className="fw-5"> exact</span> pies at my favorite
                     pizza shop,{" "}
