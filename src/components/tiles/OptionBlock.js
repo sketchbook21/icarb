@@ -36,7 +36,7 @@ const OptionBlock = ({
     return (
       <Row key={option.id}>
         <Button
-          className="option-button d-flex justify-content-between"
+          className="option-button d-flex justify-content-between align-items-center"
           variant="outline-primary"
           disabled={!prevBlockSelected}
           active={option.active}
